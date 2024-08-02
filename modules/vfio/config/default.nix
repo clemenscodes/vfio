@@ -77,7 +77,7 @@ in {
                   inputs.nixvirt.lib.domain.writeXML {
                     type = "kvm";
                     name = vm;
-                    uuid = "b8d2d9c9-4088-4288-b668-e12a9fb6d2bx";
+                    uuid = "b8d2d9c9-4088-4288-b668-e12a9fb6d2bb";
                     metadata = with inputs.nixvirt.lib.xml; [
                       (
                         elem "libosinfo:libosinfo" [
@@ -103,7 +103,7 @@ in {
                     };
                     vcpu = {
                       placement = "static";
-                      count = 20;
+                      count = 16;
                     };
                     os = {
                       hack = "efi";
@@ -177,7 +177,7 @@ in {
                       topology = {
                         sockets = 1;
                         dies = 1;
-                        cores = 10;
+                        cores = 8;
                         threads = 2;
                       };
                     };
@@ -344,7 +344,7 @@ in {
               {
                 definition = inputs.nixvirt.lib.network.writeXML {
                   name = "default";
-                  uuid = "fd64df3b-30ed-495c-ba06-b2f292c10d9x";
+                  uuid = "fd64df3b-30ed-495c-ba06-b2f292c10d92";
                   forward = {
                     mode = "nat";
                     nat = {
@@ -378,7 +378,7 @@ in {
               {
                 definition = inputs.nixvirt.lib.pool.writeXML {
                   name = "default";
-                  uuid = "8c75fdf7-68e0-4089-8a34-0ab56c7c3c4x";
+                  uuid = "8c75fdf7-68e0-4089-8a34-0ab56c7c3c40";
                   type = "dir";
                   target = {
                     path = "/var/lib/libvirt/images";
