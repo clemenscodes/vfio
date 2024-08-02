@@ -39,7 +39,6 @@ in {
           example = ["pci_0000_03_00_0" "pci_0000_03_00_1"];
         };
         ovmf = mkPackageOption pkgs "ovmf" {
-          description = "Package to use for OVMF";
           example = "(pkgs.OVMF.override { secureBoot = true; tpmSupport = true; }).fd";
           default =
             (pkgs.OVMF.override {
