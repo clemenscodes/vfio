@@ -70,7 +70,7 @@ in {
           };
           stop = mkOption {
             type = types.package;
-            description = "Libvirt hook that will run after launching guest.";
+            description = "Libvirt hook that will run after stopping guest.";
             default = stop;
             example = stop;
           };

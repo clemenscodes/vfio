@@ -1,5 +1,5 @@
-{...}: {
+inputs: {...}: {
   imports = [
-    ./vfio
+    ./vfio inputs
   ];
 }
