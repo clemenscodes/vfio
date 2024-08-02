@@ -1,4 +1,8 @@
-{lib, ...}:
+{
+  pkgs,
+  lib,
+  ...
+}:
 with lib; let
   vnc = import ../scripts/vnc.nix {inherit pkgs config;};
   qemu = import ../scripts/qemu.nix {inherit pkgs;};
