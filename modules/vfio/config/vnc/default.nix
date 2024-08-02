@@ -11,7 +11,7 @@ in {
       libvirtd = {
         hooks = {
           qemu = {
-            vnc = "${vnc.hook}/bin/portforwarding.sh";
+            vnc = "${vnc.hook}/bin/vnc.sh";
           };
         };
       };
