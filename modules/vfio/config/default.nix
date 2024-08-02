@@ -145,30 +145,30 @@ in {
                         apic = {};
                         hyperv = {
                           relaxed = {
-                            state = "on";
+                            state = true;
                           };
                           vapic = {
-                            state = "on";
+                            state = true;
                           };
                           spinlocks = {
-                            state = "on";
+                            state = true;
                             retries = 8191;
                           };
                           vendor_id = {
-                            state = "on";
+                            state = true;
                             value = "windows";
                           };
                         };
                         kvm = {
                           hidden = {
-                            state = "on";
+                            state = true;
                           };
                         };
                         vmport = {
-                          state = "off";
+                          state = false;
                         };
                         smm = {
-                          state = "on";
+                          state = true;
                         };
                       };
                       cpu = {
@@ -345,8 +345,7 @@ in {
             networks = [
               {
                 definition = inputs.nixvirt.lib.network.writeXML (
-                  inputs.nixvirt.lib.network.getXML
-                  {
+                  inputs.nixvirt.lib.network.getXML {
                     name = "default";
                     uuid = "fd64df3b-30ed-495c-ba06-b2f292c10d92";
                     forward = {
@@ -360,7 +359,7 @@ in {
                     };
                     bridge = {
                       name = "virbr0";
-                      stp = "on";
+                      stp = true;
                       delay = 0;
                     };
                     mac = {address = "52:54:00:b2:ca:8d";};
