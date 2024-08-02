@@ -38,8 +38,15 @@ in {
           description = "List of PCI IDs in the form of pci_0000_00_00_0. Will be detached and reattached in libvirts hook cycle.";
           example = ["pci_0000_03_00_0" "pci_0000_03_00_1"];
         };
-        ovmf = mkPackageOption pkgs "ovmf" {
-          example = "(pkgs.OVMF.override { secureBoot = true; tpmSupport = true; }).fd";
+        ovmf = mkOption {
+          type = types.package;
+          description = "OVMF to use for the guest.";
+          example =
+            (pkgs.OVMF.override {
+              secureBoot = true;
+              tpmSupport = true;
+            })
+            .fd;
           default =
             (pkgs.OVMF.override {
               secureBoot = true;
