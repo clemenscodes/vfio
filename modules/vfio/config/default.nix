@@ -52,8 +52,6 @@ in {
         onShutdown = "shutdown";
         allowedBridges = ["virbr0"];
         qemu = {
-          package = pkgs.qemu_kvm;
-          vhostUserPackages = [pkgs.virtiofsd];
           runAsRoot = true;
           ovmf = {
             inherit (cfg) enable;
@@ -69,20 +67,6 @@ in {
             stop = "${hooks.stop}/bin/stop.sh";
           };
         };
-      };
-      spiceUSBRedirection = {
-        inherit (cfg) enable;
-      };
-    };
-    services = {
-      spice-vdagentd = {
-        inherit (cfg) enable;
-      };
-      spice-webdavd = {
-        inherit (cfg) enable;
-      };
-      qemuGuest = {
-        inherit (cfg) enable;
       };
     };
     users = {
