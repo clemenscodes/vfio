@@ -76,19 +76,5 @@ in {
         };
       };
     };
-    home-manager = lib.mkIf (config.home-manager.enable && cfg.enable) {
-      users = {
-        ${user} = {
-          dconf = {
-            settings = {
-              "org/virt-manager/virt-manager/connections" = {
-                autoconnect = ["qemu:///system"];
-                uris = ["qemu:///system"];
-              };
-            };
-          };
-        };
-      };
-    };
   };
 }
