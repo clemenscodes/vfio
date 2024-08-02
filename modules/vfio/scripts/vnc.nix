@@ -2,7 +2,7 @@
   pkgs,
   config,
 }: let
-  inherit (config.vfio) vm vnc;
+  inherit (config.virtualisation.vfio) vm vnc;
   inherit (vnc) host guest;
 in
   pkgs.writeShellScriptBin "vnc.sh" ''

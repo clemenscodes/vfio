@@ -4,7 +4,7 @@
   lib,
   ...
 }: let
-  cfg = config.vfio;
+  cfg = config.virtualisation.vfio;
   inherit (cfg) cpu user ovmf hooks;
 in {
   imports = [
@@ -92,7 +92,7 @@ in {
         };
       };
     };
-    home-manager = lib.mkIf (config.home-manager.enable) {
+    home-manager = lib.mkIf (config.home-manager.enable && cfg.enable) {
       users = {
         ${user} = {
           dconf = {

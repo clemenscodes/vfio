@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  cfg = config.vfio;
+  cfg = config.virtualisation.vfio;
   inherit (cfg) vnc;
 in {
   config = lib.mkIf (cfg.enable && cfg.vnc.enable) {

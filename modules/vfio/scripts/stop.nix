@@ -2,7 +2,7 @@
   pkgs,
   config,
 }: let
-  inherit (config.vfio) vm pcis;
+  inherit (config.virtualisation.vfio) vm pcis;
 in
   pkgs.writeShellScriptBin "stop.sh" ''
     if [ "$1" = "${vm}" ] && [ "$2" = "release" ] && [ "$3" = "end" ]; then
