@@ -1,6 +1,6 @@
 inputs: {...}: {
   imports = [
     inputs.nixvirt.nixosModules.default
-    ./config
+    (import ./config inputs)
   ];
 }

@@ -7,7 +7,7 @@
       url = "github:numtide/flake-utils";
     };
     nixvirt = {
-      url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
+      url = "github:clemenscodes/NixVirt";
       inputs = {
         nixpkgs = {
           follows = "nixpkgs";
