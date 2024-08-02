@@ -9,7 +9,7 @@ in {
     virtualisation = {
       vfio = {
         enable = mkEnableOption "Enable Virtual Function I/O" // {default = false;};
-        interface = mkOption {
+        vm = mkOption {
           type = types.str;
           description = "Name of the guest for which to configure VFIO";
           example = "win11";
