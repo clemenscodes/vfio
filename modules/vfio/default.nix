@@ -1,5 +1,5 @@
 {...}: {
   imports = [
-    ./vfio
+    ./config
   ];
 }
