@@ -5,7 +5,7 @@ inputs: {
   ...
 }: let
   cfg = config.virtualisation.vfio;
-  inherit (cfg) vm cpu user ovmf hooks passthrough internet;
+  inherit (cfg) vm cpu user ovmf hooks passthrough;
 in {
   imports = [
     ./vnc
@@ -328,7 +328,7 @@ in {
                           ports = 15;
                         }
                       ];
-                      interface = lib.mkIf internet {
+                      interface = {
                         type = "bridge";
                         model = {
                           type = "virtio";
