@@ -172,9 +172,9 @@ in {
                       };
                     };
                     cpu = {
-                      mode = "host-passthrough";
-                      check = "none";
-                      migratable = true;
+                      mode = "custom";
+                      match = "exact";
+                      check = "partial";
                       model = {
                         fallback = "allow";
                         name = "Skylake-Client-noTSX-IBRS";
