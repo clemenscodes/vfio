@@ -104,7 +104,7 @@ in {
                     };
                     vcpu = {
                       placement = "static";
-                      count = 16;
+                      count = 20;
                     };
                     os = {
                       hack = "efi";
@@ -112,7 +112,7 @@ in {
                       arch = "x86_64";
                       machine = "pc-q35-9.0";
                       firmware = {
-                        features = [
+                        feature = [
                           {
                             enabled = false;
                             name = "enrolled-keys";
@@ -178,7 +178,7 @@ in {
                       topology = {
                         sockets = 1;
                         dies = 1;
-                        cores = 8;
+                        cores = 10;
                         threads = 2;
                       };
                     };
