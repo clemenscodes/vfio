@@ -7,9 +7,8 @@ in
   pkgs.writeShellScriptBin "start.sh" ''
     if [ "$1" = "${vm}" ] && [ "$2" = "prepare" ] && [ "$3" = "begin" ]; then
       ${pkgs.bash}/bin/set -x
-      ${pkgs.systemd}/bin/systemctl stop display-manager.service
-      ${pkgs.systemd}/bin/systemctl isolate multi-user.target
       ${pkgs.systemd}/bin/systemctl stop lactd.service
+      ${pkgs.systemd}/bin/systemctl stop display-manager.service
       echo 0 > /sys/class/vtconsole/vtcon0/bind
       echo 0 > /sys/class/vtconsole/vtcon1/bind
       ${pkgs.kmod}/bin/modprobe -r amdgpu
