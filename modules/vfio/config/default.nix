@@ -373,6 +373,7 @@ in {
                       video = {
                         model = {
                           type = "none";
+                          address = pci_address 8 1 0;
                         };
                       };
                       hostdev = [
