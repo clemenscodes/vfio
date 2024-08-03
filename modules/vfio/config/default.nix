@@ -5,7 +5,7 @@ inputs: {
   ...
 }: let
   cfg = config.virtualisation.vfio;
-  inherit (cfg) vm cpu user ovmf hooks;
+  inherit (cfg) vm cpu user ovmf hooks driver;
 in {
   imports = [
     ./vnc
@@ -192,10 +192,10 @@ in {
                           policy = "disable";
                           name = "mpx";
                         }
-                        # {
-                        #   policy = "disable";
-                        #   name = "hypervisor";
-                        # }
+                        {
+                          policy = "disable";
+                          name = "hypervisor";
+                        }
                       ];
                     };
                     clock = {
@@ -342,6 +342,16 @@ in {
                           version = "2.0";
                         };
                       };
+                      graphics = lib.mkIf (!driver) {
+                        type = "vnc";
+                        port = -1;
+                        autoport = true;
+                        hack = "0.0.0.0";
+                        listen = {
+                          type = "address";
+                          address = "0.0.0.0";
+                        };
+                      };
                       sound = {
                         model = "ich9";
                         address = pci_address 0 27 0;
@@ -350,7 +360,18 @@ in {
                         id = 1;
                         type = "none";
                       };
-                      hostdev = [
+                      video = lib.mkIf (!driver) {
+                        model = {
+                          type = "qxl";
+                          ram = 65536;
+                          vram = 65536;
+                          vgamem = 16384;
+                          heads = 1;
+                          primary = true;
+                          address = pci_address 8 1 0;
+                        };
+                      };
+                      hostdev = lib.mkIf driver [
                         {
                           mode = "subsystem";
                           type = "pci";

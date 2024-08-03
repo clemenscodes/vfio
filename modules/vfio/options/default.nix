@@ -19,6 +19,7 @@ in {
           description = "Name of the guest for which to configure VFIO";
           example = "win11";
         };
+        driver = mkEnbaleOption "Whether GPU drivers are installed or not." // {default = false;};
         user = mkOption {
           type = types.str;
           description = "User for which to configure VFIO.";
