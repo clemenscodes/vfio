@@ -6,7 +6,7 @@
 in
   pkgs.writeShellScriptBin "stop.sh" ''
     if [ "$1" = "${vm}" ] && [ "$2" = "release" ] && [ "$3" = "end" ]; then
-      ${pkgs.bash}/bin/set -x
+      set -x
       # ${pkgs.systemd}/bin/systemctl start display-manager.service
       # ${pkgs.systemd}/bin/systemctl start lactd.service
     fi
