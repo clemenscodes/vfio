@@ -198,8 +198,9 @@ in {
                       };
                     };
                     cpu = {
-                      mode = "host-passthrough";
-                      check = "none";
+                      mode = "custom";
+                      check = "partial";
+                      match = "exact";
                       topology = {
                         sockets = 1;
                         dies = 1;
