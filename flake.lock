@@ -58,11 +58,11 @@
         "nixpkgs-ovmf": "nixpkgs-ovmf"
       },
       "locked": {
-        "lastModified": 1722669089,
-        "narHash": "sha256-808ADhBqRRr8TmopieWvDGviQeKTbCSUELDqzae8BFY=",
+        "lastModified": 1722671811,
+        "narHash": "sha256-K2b78qbJZGYL1n0Lr5lnHxcemzD1mg87Ib4djgzi+R4=",
         "owner": "clemenscodes",
         "repo": "NixVirt",
-        "rev": "529219cb696882261b8c7390cd07d7aafb010d33",
+        "rev": "f70921c5f5f02ade7c4f9521ac8eeef14b9b4684",
         "type": "github"
       },
       "original": {
