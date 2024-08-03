@@ -172,13 +172,27 @@ in {
                       };
                     };
                     cpu = {
-                      mode = "custom";
-                      match = "exact";
-                      check = "partial";
-                      model = {
-                        fallback = "allow";
-                        name = "Skylake-Client-noTSX-IBRS";
-                      };
+                      mode = "host-passthrough";
+                      check = "none";
+                      migratable = true;
+                      # model = {
+                      #   fallback = "allow";
+                      #   name = "Skylake-Client-noTSX-IBRS";
+                      # };
+                      # feature = [
+                      #   {
+                      #     policy = "disable";
+                      #     name = "hypervisor";
+                      #   }
+                      #   {
+                      #     policy = "require";
+                      #     name = "vmx";
+                      #   }
+                      #   {
+                      #     policy = "disable";
+                      #     name = "hypervisor";
+                      #   }
+                      # ];
                       topology = {
                         sockets = 1;
                         dies = 1;
@@ -186,20 +200,6 @@ in {
                         cores = 10;
                         threads = 2;
                       };
-                      feature = [
-                        {
-                          policy = "disable";
-                          name = "hypervisor";
-                        }
-                        {
-                          policy = "require";
-                          name = "vmx";
-                        }
-                        {
-                          policy = "disable";
-                          name = "mpx";
-                        }
-                      ];
                     };
                     clock = {
                       offset = "localtime";
