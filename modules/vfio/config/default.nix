@@ -287,14 +287,6 @@ in {
                           model = "pcie-root";
                         }
                         {
-                          type = "pci";
-                          model = "pcie-to-pci-bridge";
-                          hack = {
-                            name = "pcie-pci-bridge";
-                          };
-                          address = pci_address 6 0 0;
-                        }
-                        {
                           type = "sata";
                           index = 0;
                           address = pci_address 0 31 2;
@@ -335,33 +327,6 @@ in {
                           version = "2.0";
                         };
                       };
-                      graphics = [
-                        {
-                          type = "spice";
-                          autoport = true;
-                          hack = "0.0.0.0";
-                          listen = {
-                            type = "address";
-                            address = "0.0.0.0";
-                          };
-                          image = {
-                            compression = false;
-                          };
-                          gl = {
-                            enable = false;
-                          };
-                        }
-                        {
-                          type = "vnc";
-                          port = -1;
-                          autoport = true;
-                          hack = "0.0.0.0";
-                          listen = {
-                            type = "address";
-                            address = "0.0.0.0";
-                          };
-                        }
-                      ];
                       sound = {
                         model = "ich9";
                         address = pci_address 0 27 0;
@@ -369,12 +334,6 @@ in {
                       audio = {
                         id = 1;
                         type = "none";
-                      };
-                      video = {
-                        model = {
-                          type = "none";
-                          address = pci_address 8 1 0;
-                        };
                       };
                       hostdev = [
                         {
