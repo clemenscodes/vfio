@@ -175,6 +175,24 @@ in {
                       mode = "host-passthrough";
                       check = "none";
                       migratable = true;
+                      model = {
+                        fallback = "allow";
+                        name = "Skylake-Client-noTSX-IBRS";
+                        feature = [
+                          {
+                            policy = "disable";
+                            name = "hypervisor";
+                          }
+                          {
+                            policy = "require";
+                            name = "vmx";
+                          }
+                          {
+                            policy = "disable";
+                            name = "mpx";
+                          }
+                        ];
+                      };
                       topology = {
                         sockets = 1;
                         dies = 1;
