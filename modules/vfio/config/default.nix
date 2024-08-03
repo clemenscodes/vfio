@@ -323,15 +323,8 @@ in {
                           model = "qemu-xhci";
                           ports = 15;
                         }
-                        # {
-                        #   type = "pci";
-                        #   model = "pcie-root";
-                        # }
-                        # {
-                        #   type = "sata";
-                        # }
                       ];
-                      interface = {
+                      interface = lib.optional driver {
                         type = "bridge";
                         model = {
                           type = "virtio";
