@@ -2,18 +2,18 @@
   pkgs,
   config,
 }: let
-  inherit (config.virtualisation.vfio) vm driver;
+  inherit (config.virtualisation.vfio) vm passthrough;
 in
   pkgs.writeShellScriptBin "stop.sh" ''
     if [ "$1" = "${vm}" ] && [ "$2" = "release" ] && [ "$3" = "end" ]; then
       set -x
       ${
-      if driver
+      if passthrough
       then "${pkgs.systemd}/bin/systemctl start lactd.service"
       else ""
     }
       ${
-      if driver
+      if passthrough
       then "${pkgs.systemd}/bin/systemctl start display-manager.service"
       else ""
     }

@@ -5,7 +5,7 @@ inputs: {
   ...
 }: let
   cfg = config.virtualisation.vfio;
-  inherit (cfg) vm cpu user ovmf hooks driver;
+  inherit (cfg) vm cpu user ovmf hooks passthrough internet;
 in {
   imports = [
     ./vnc
@@ -276,7 +276,7 @@ in {
                           };
                           boot = {
                             order =
-                              if driver
+                              if passthrough
                               then 1
                               else 2;
                           };
@@ -298,7 +298,7 @@ in {
                           };
                           boot = {
                             order =
-                              if driver
+                              if passthrough
                               then 2
                               else 1;
                           };
@@ -328,7 +328,7 @@ in {
                           ports = 15;
                         }
                       ];
-                      interface = {
+                      interface = lib.optional internet {
                         type = "bridge";
                         model = {
                           type = "virtio";
@@ -408,12 +408,12 @@ in {
                       audio = {
                         id = 1;
                         type =
-                          if driver
+                          if passthrough
                           then "none"
                           else "spice";
                       };
                       video =
-                        lib.optional (!driver) {
+                        lib.optional (!passthrough) {
                           model = {
                             type = "qxl";
                             ram = 65536;
@@ -423,12 +423,12 @@ in {
                             primary = true;
                           };
                         }
-                        ++ lib.optional driver {
+                        ++ lib.optional passthrough {
                           model = {
                             type = "none";
                           };
                         };
-                      hostdev = lib.optional driver [
+                      hostdev = lib.optional passthrough [
                         {
                           mode = "subsystem";
                           type = "pci";

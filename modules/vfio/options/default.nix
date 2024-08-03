@@ -19,7 +19,8 @@ in {
           description = "Name of the guest for which to configure VFIO";
           example = "win11";
         };
-        driver = mkEnableOption "Whether GPU drivers are installed or not." // {default = false;};
+        passthrough = mkEnableOption "Whether GPU should be passed through." // {default = false;};
+        internet = mkEnableOption "Enable the network interface card." // {default = false;};
         user = mkOption {
           type = types.str;
           description = "User for which to configure VFIO.";
