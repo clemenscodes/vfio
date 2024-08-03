@@ -69,13 +69,13 @@ in {
                     type = "usb";
                     bus = 0;
                   };
-                  # drive_address = unit: {
-                  #   inherit unit;
-                  #   type = "drive";
-                  #   controller = 0;
-                  #   bus = 0;
-                  #   target = 0;
-                  # };
+                  drive_address = unit: {
+                    inherit unit;
+                    type = "drive";
+                    controller = 0;
+                    bus = 0;
+                    target = 0;
+                  };
                 in
                   inputs.nixvirt.lib.domain.writeXML {
                     type = "kvm";
@@ -157,36 +157,36 @@ in {
                           state = true;
                           value = "GenuineIntel";
                         };
-                        vpindex = {
-                          state = true;
-                        };
-                        runtime = {
-                          state = true;
-                        };
-                        synic = {
-                          state = true;
-                        };
-                        stimer = {
-                          state = true;
-                          direct = {
-                            state = true;
-                          };
-                        };
-                        reset = {
-                          state = true;
-                        };
-                        frequencies = {
-                          state = true;
-                        };
-                        reenlightenment = {
-                          state = true;
-                        };
-                        tlbflush = {
-                          state = true;
-                        };
-                        ipi = {
-                          state = true;
-                        };
+                        # vpindex = {
+                        #   state = true;
+                        # };
+                        # runtime = {
+                        #   state = true;
+                        # };
+                        # synic = {
+                        #   state = true;
+                        # };
+                        # stimer = {
+                        #   state = true;
+                        #   direct = {
+                        #     state = true;
+                        #   };
+                        # };
+                        # reset = {
+                        #   state = true;
+                        # };
+                        # frequencies = {
+                        #   state = true;
+                        # };
+                        # reenlightenment = {
+                        #   state = true;
+                        # };
+                        # tlbflush = {
+                        #   state = true;
+                        # };
+                        # ipi = {
+                        #   state = true;
+                        # };
                       };
                       kvm = {
                         hidden = {
@@ -277,7 +277,7 @@ in {
                           boot = {
                             order = 1;
                           };
-                          # address = drive_address 0;
+                          address = drive_address 0;
                         }
                         {
                           type = "file";
@@ -298,7 +298,7 @@ in {
                             order = 2;
                           };
                           readonly = true;
-                          # address = drive_address 1;
+                          address = drive_address 1;
                         }
                         {
                           type = "file";
@@ -315,7 +315,7 @@ in {
                             dev = "sdc";
                           };
                           readonly = true;
-                          # address = drive_address 2;
+                          address = drive_address 2;
                         }
                       ];
                       controller = [
@@ -324,7 +324,7 @@ in {
                           index = 0;
                           model = "qemu-xhci";
                           ports = 15;
-                          # address = pci_address 2 0 0;
+                          address = pci_address 2 0 0;
                         }
                         {
                           type = "pci";
@@ -334,13 +334,13 @@ in {
                         {
                           type = "sata";
                           index = 0;
-                          # address = pci_address 0 31 2;
+                          address = pci_address 0 31 2;
                         }
                       ];
                       interface = {
-                        # mac = {
-                        #   address = "52:54:00:66:d7:8b";
-                        # };
+                        mac = {
+                          address = "52:54:00:66:d7:8b";
+                        };
                         type = "bridge";
                         model = {
                           type = "virtio";
@@ -348,7 +348,7 @@ in {
                         source = {
                           bridge = "virbr0";
                         };
-                        # address = pci_address 1 0 0;
+                        address = pci_address 1 0 0;
                       };
                       channel = lib.optional (!driver) {
                         type = "spicevmc";
@@ -373,7 +373,7 @@ in {
                         {
                           type = "tablet";
                           bus = "usb";
-                          # address = usb_address 1;
+                          address = usb_address 1;
                         }
                         {
                           type = "mouse";
@@ -391,42 +391,41 @@ in {
                           version = "2.0";
                         };
                       };
-                      graphics = lib.optional (!driver) [
-                        {
-                          type = "spice";
-                          autoport = true;
-                          listen = {
-                            type = "none";
-                          };
-                          image = {
-                            compression = false;
-                          };
-                          gl = {
-                            enable = false;
-                          };
-                        }
-                        {
-                          type = "vnc";
-                          port = -1;
-                          autoport = true;
-                          hack = "0.0.0.0";
-                          listen = {
-                            type = "address";
-                            address = "0.0.0.0";
-                          };
-                        }
-                      ];
+                      graphics = lib.optional (!driver) {
+                        # {
+                        #   type = "spice";
+                        #   autoport = true;
+                        #   listen = {
+                        #     type = "none";
+                        #   };
+                        #   image = {
+                        #     compression = false;
+                        #   };
+                        #   gl = {
+                        #     enable = false;
+                        #   };
+                        # }
+                        # {
+                        type = "vnc";
+                        port = -1;
+                        autoport = true;
+                        hack = "0.0.0.0";
+                        listen = {
+                          type = "address";
+                          address = "0.0.0.0";
+                        };
+                      };
+                      # ];
                       sound = {
                         model = "ich9";
-                        # address = pci_address 0 27 0;
+                        address = pci_address 0 27 0;
                       };
                       audio = {
                         id = 1;
-                        type = "none";
-                        # type =
-                        #   if driver
-                        #   then "none"
-                        #   else "spice";
+                        type =
+                          if driver
+                          then "none"
+                          else "spice";
                       };
                       video = lib.optional (!driver) {
                         model = {
@@ -436,7 +435,7 @@ in {
                           vgamem = 16384;
                           heads = 1;
                           primary = true;
-                          # address = pci_address 8 1 0;
+                          address = pci_address 8 1 0;
                         };
                       };
                       hostdev = lib.optional driver [
@@ -482,7 +481,7 @@ in {
                               id = "0xc541";
                             };
                           };
-                          # address = usb_address 3;
+                          address = usb_address 3;
                         }
                         {
                           mode = "subsystem";
@@ -496,7 +495,7 @@ in {
                               id = "0xc539";
                             };
                           };
-                          # address = usb_address 4;
+                          address = usb_address 4;
                         }
                       ];
                       watchdog = {
@@ -505,7 +504,7 @@ in {
                       };
                       memballoon = {
                         model = "virtio";
-                        # address = pci_address 4 0 0;
+                        address = pci_address 4 0 0;
                       };
                       redirdev = [
                         {
@@ -547,7 +546,9 @@ in {
                     stp = true;
                     delay = 0;
                   };
-                  # mac = {address = "52:54:00:b2:ca:8d";};
+                  mac = {
+                    address = "52:54:00:b2:ca:8d";
+                  };
                   ip = {
                     address = "192.168.122.1";
                     netmask = "255.255.255.0";
@@ -576,7 +577,6 @@ in {
                     };
                   };
                 };
-                active = true;
               }
             ];
           };
