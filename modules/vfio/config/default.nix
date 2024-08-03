@@ -491,6 +491,19 @@ in {
                       group = "0";
                     };
                   };
+                  volumes = [
+                    {
+                      present = true;
+                      name = vm;
+                      definition = inputs.nixvirt.lib.volume.writeXML {
+                        name = vm;
+                        capacity = {
+                          count = 64;
+                          unit = "GB";
+                        };
+                      };
+                    }
+                  ];
                 };
               }
             ];
