@@ -69,13 +69,13 @@ in {
                     type = "usb";
                     bus = 0;
                   };
-                  drive_address = unit: {
-                    inherit unit;
-                    type = "drive";
-                    controller = 0;
-                    bus = 0;
-                    target = 0;
-                  };
+                  # drive_address = unit: {
+                  #   inherit unit;
+                  #   type = "drive";
+                  #   controller = 0;
+                  #   bus = 0;
+                  #   target = 0;
+                  # };
                 in
                   inputs.nixvirt.lib.domain.writeXML {
                     type = "kvm";
@@ -324,7 +324,7 @@ in {
                           index = 0;
                           model = "qemu-xhci";
                           ports = 15;
-                          address = pci_address 2 0 0;
+                          # address = pci_address 2 0 0;
                         }
                         {
                           type = "pci";
@@ -334,7 +334,7 @@ in {
                         {
                           type = "sata";
                           index = 0;
-                          address = pci_address 0 31 2;
+                          # address = pci_address 0 31 2;
                         }
                       ];
                       interface = {
@@ -350,26 +350,24 @@ in {
                         };
                         # address = pci_address 1 0 0;
                       };
-                      channel =
-                        # lib.optional (!driver)
-                        # {
-                        #   type = "spicevmc";
-                        #   target = {
-                        #     type = "virtio";
-                        #     name = "com.redhat.spice.0";
-                        #   };
-                        # }
-                        # ++ [
-                        {
-                          type = "spiceport";
-                          source = {
-                            channel = "org.spice-space.webdav.0";
-                          };
-                          target = {
-                            type = "virtio";
-                            name = "org.spice-space.webdav.0";
-                          };
+                      channel = lib.optional (!driver) {
+                        type = "spicevmc";
+                        target = {
+                          type = "virtio";
+                          name = "com.redhat.spice.0";
                         };
+                      };
+                      # ++ [
+                      # {
+                      #   type = "spiceport";
+                      #   source = {
+                      #     channel = "org.spice-space.webdav.0";
+                      #   };
+                      #   target = {
+                      #     type = "virtio";
+                      #     name = "org.spice-space.webdav.0";
+                      #   };
+                      # };
                       # ];
                       input = [
                         {
@@ -424,10 +422,11 @@ in {
                       };
                       audio = {
                         id = 1;
-                        type =
-                          if driver
-                          then "none"
-                          else "spice";
+                        type = "none";
+                        # type =
+                        #   if driver
+                        #   then "none"
+                        #   else "spice";
                       };
                       video = lib.optional (!driver) {
                         model = {
@@ -483,7 +482,7 @@ in {
                               id = "0xc541";
                             };
                           };
-                          address = usb_address 3;
+                          # address = usb_address 3;
                         }
                         {
                           mode = "subsystem";
@@ -497,7 +496,7 @@ in {
                               id = "0xc539";
                             };
                           };
-                          address = usb_address 4;
+                          # address = usb_address 4;
                         }
                       ];
                       watchdog = {
@@ -506,7 +505,7 @@ in {
                       };
                       memballoon = {
                         model = "virtio";
-                        address = pci_address 4 0 0;
+                        # address = pci_address 4 0 0;
                       };
                       redirdev = [
                         {
