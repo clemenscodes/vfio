@@ -230,7 +230,7 @@ in {
                             bus = "sata";
                           };
                           boot = {
-                            order = "1";
+                            order = 1;
                           };
                           address = drive_address 0;
                         }
@@ -250,7 +250,7 @@ in {
                             dev = "sdb";
                           };
                           boot = {
-                            order = "2";
+                            order = 2;
                           };
                           readonly = true;
                         }
