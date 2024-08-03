@@ -178,20 +178,6 @@ in {
                       model = {
                         fallback = "allow";
                         name = "Skylake-Client-noTSX-IBRS";
-                        feature = [
-                          {
-                            policy = "disable";
-                            name = "hypervisor";
-                          }
-                          {
-                            policy = "require";
-                            name = "vmx";
-                          }
-                          {
-                            policy = "disable";
-                            name = "mpx";
-                          }
-                        ];
                       };
                       topology = {
                         sockets = 1;
@@ -200,6 +186,20 @@ in {
                         cores = 10;
                         threads = 2;
                       };
+                      feature = [
+                        {
+                          policy = "disable";
+                          name = "hypervisor";
+                        }
+                        {
+                          policy = "require";
+                          name = "vmx";
+                        }
+                        {
+                          policy = "disable";
+                          name = "mpx";
+                        }
+                      ];
                     };
                     clock = {
                       offset = "localtime";
