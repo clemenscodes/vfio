@@ -55,7 +55,6 @@ in {
           "qemu:///system" = {
             domains = [
               {
-                # definition = ./win11.xml;
                 definition = let
                   source_address = bus: slot: function: {
                     inherit bus slot function;
@@ -213,23 +212,41 @@ in {
                     };
                     devices = {
                       emulator = "/run/libvirt/nix-emulators/qemu-system-x86_64";
-                      disk = {
-                        type = "file";
-                        device = "disk";
-                        driver = {
-                          name = "qemu";
-                          type = "qcow2";
-                          discard = "unmap";
-                        };
-                        source = {
-                          file = "/var/lib/libvirt/images/win11.qcow2";
-                        };
-                        target = {
-                          dev = "sda";
-                          bus = "sata";
-                        };
-                        address = drive_address 0;
-                      };
+                      disk = [
+                        {
+                          type = "file";
+                          device = "disk";
+                          driver = {
+                            name = "qemu";
+                            type = "qcow2";
+                            discard = "unmap";
+                          };
+                          source = {
+                            file = "/var/lib/libvirt/images/win11.qcow2";
+                          };
+                          target = {
+                            dev = "sda";
+                            bus = "sata";
+                          };
+                          address = drive_address 0;
+                        }
+                        {
+                          type = "file";
+                          device = "cdrom";
+                          driver = {
+                            name = "qemu";
+                            type = "raw";
+                          };
+                          source = {
+                            file = "${inputs.nixvirt.lib.guest-install.virtio-win.iso}";
+                          };
+                          target = {
+                            bus = "sata";
+                            dev = "sda";
+                          };
+                          readonly = true;
+                        }
+                      ];
                       controller = [
                         {
                           type = "usb";
@@ -243,188 +260,188 @@ in {
                           index = 0;
                           model = "pcie-root";
                         }
-                        {
-                          type = "pci";
-                          index = 1;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 1;
-                            port = 16;
-                          };
-                          address = pci_address 0 2 0 // {multifunction = true;};
-                        }
-                        {
-                          type = "pci";
-                          index = 2;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 2;
-                            port = 17;
-                          };
-                          address = pci_address 0 2 1;
-                        }
-                        {
-                          type = "pci";
-                          index = 3;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 3;
-                            port = 18;
-                          };
-                          address = pci_address 0 2 2;
-                        }
-                        {
-                          type = "pci";
-                          index = 4;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 4;
-                            port = 19;
-                          };
-                          address = pci_address 0 2 3;
-                        }
-                        {
-                          type = "pci";
-                          index = 5;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 5;
-                            port = 20;
-                          };
-                          address = pci_address 0 2 4;
-                        }
-                        {
-                          type = "pci";
-                          index = 6;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 6;
-                            port = 21;
-                          };
-                          address = pci_address 0 2 5;
-                        }
-                        {
-                          type = "pci";
-                          index = 7;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 7;
-                            port = 22;
-                          };
-                          address = pci_address 0 2 6;
-                        }
-                        {
-                          type = "pci";
-                          index = 8;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 8;
-                            port = 23;
-                          };
-                          address = pci_address 0 2 7;
-                        }
-                        {
-                          type = "pci";
-                          index = 9;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 9;
-                            port = 24;
-                          };
-                          address = pci_address 0 3 0 // {multifunction = true;};
-                        }
-                        {
-                          type = "pci";
-                          index = 10;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 10;
-                            port = 25;
-                          };
-                          address = pci_address 0 3 1;
-                        }
-                        {
-                          type = "pci";
-                          index = 11;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 11;
-                            port = 26;
-                          };
-                          address = pci_address 0 3 2;
-                        }
-                        {
-                          type = "pci";
-                          index = 12;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 12;
-                            port = 27;
-                          };
-                          address = pci_address 0 3 3;
-                        }
-                        {
-                          type = "pci";
-                          index = 13;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 13;
-                            port = 28;
-                          };
-                          address = pci_address 0 3 4;
-                        }
-                        {
-                          type = "pci";
-                          index = 14;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 14;
-                            port = 29;
-                          };
-                          address = pci_address 0 3 5;
-                        }
+                        # {
+                        #   type = "pci";
+                        #   index = 1;
+                        #   model = "pcie-root-port";
+                        #   hack = {
+                        #     name = "pcie-root-port";
+                        #   };
+                        #   target = {
+                        #     chassis = 1;
+                        #     port = 16;
+                        #   };
+                        #   address = pci_address 0 2 0 // {multifunction = true;};
+                        # }
+                        # {
+                        #   type = "pci";
+                        #   index = 2;
+                        #   model = "pcie-root-port";
+                        #   hack = {
+                        #     name = "pcie-root-port";
+                        #   };
+                        #   target = {
+                        #     chassis = 2;
+                        #     port = 17;
+                        #   };
+                        #   address = pci_address 0 2 1;
+                        # }
+                        # {
+                        #   type = "pci";
+                        #   index = 3;
+                        #   model = "pcie-root-port";
+                        #   hack = {
+                        #     name = "pcie-root-port";
+                        #   };
+                        #   target = {
+                        #     chassis = 3;
+                        #     port = 18;
+                        #   };
+                        #   address = pci_address 0 2 2;
+                        # }
+                        # {
+                        #   type = "pci";
+                        #   index = 4;
+                        #   model = "pcie-root-port";
+                        #   hack = {
+                        #     name = "pcie-root-port";
+                        #   };
+                        #   target = {
+                        #     chassis = 4;
+                        #     port = 19;
+                        #   };
+                        #   address = pci_address 0 2 3;
+                        # }
+                        # {
+                        #   type = "pci";
+                        #   index = 5;
+                        #   model = "pcie-root-port";
+                        #   hack = {
+                        #     name = "pcie-root-port";
+                        #   };
+                        #   target = {
+                        #     chassis = 5;
+                        #     port = 20;
+                        #   };
+                        #   address = pci_address 0 2 4;
+                        # }
+                        # {
+                        #   type = "pci";
+                        #   index = 6;
+                        #   model = "pcie-root-port";
+                        #   hack = {
+                        #     name = "pcie-root-port";
+                        #   };
+                        #   target = {
+                        #     chassis = 6;
+                        #     port = 21;
+                        #   };
+                        #   address = pci_address 0 2 5;
+                        # }
+                        # {
+                        #   type = "pci";
+                        #   index = 7;
+                        #   model = "pcie-root-port";
+                        #   hack = {
+                        #     name = "pcie-root-port";
+                        #   };
+                        #   target = {
+                        #     chassis = 7;
+                        #     port = 22;
+                        #   };
+                        #   address = pci_address 0 2 6;
+                        # }
+                        # {
+                        #   type = "pci";
+                        #   index = 8;
+                        #   model = "pcie-root-port";
+                        #   hack = {
+                        #     name = "pcie-root-port";
+                        #   };
+                        #   target = {
+                        #     chassis = 8;
+                        #     port = 23;
+                        #   };
+                        #   address = pci_address 0 2 7;
+                        # }
+                        # {
+                        #   type = "pci";
+                        #   index = 9;
+                        #   model = "pcie-root-port";
+                        #   hack = {
+                        #     name = "pcie-root-port";
+                        #   };
+                        #   target = {
+                        #     chassis = 9;
+                        #     port = 24;
+                        #   };
+                        #   address = pci_address 0 3 0 // {multifunction = true;};
+                        # }
+                        # {
+                        #   type = "pci";
+                        #   index = 10;
+                        #   model = "pcie-root-port";
+                        #   hack = {
+                        #     name = "pcie-root-port";
+                        #   };
+                        #   target = {
+                        #     chassis = 10;
+                        #     port = 25;
+                        #   };
+                        #   address = pci_address 0 3 1;
+                        # }
+                        # {
+                        #   type = "pci";
+                        #   index = 11;
+                        #   model = "pcie-root-port";
+                        #   hack = {
+                        #     name = "pcie-root-port";
+                        #   };
+                        #   target = {
+                        #     chassis = 11;
+                        #     port = 26;
+                        #   };
+                        #   address = pci_address 0 3 2;
+                        # }
+                        # {
+                        #   type = "pci";
+                        #   index = 12;
+                        #   model = "pcie-root-port";
+                        #   hack = {
+                        #     name = "pcie-root-port";
+                        #   };
+                        #   target = {
+                        #     chassis = 12;
+                        #     port = 27;
+                        #   };
+                        #   address = pci_address 0 3 3;
+                        # }
+                        # {
+                        #   type = "pci";
+                        #   index = 13;
+                        #   model = "pcie-root-port";
+                        #   hack = {
+                        #     name = "pcie-root-port";
+                        #   };
+                        #   target = {
+                        #     chassis = 13;
+                        #     port = 28;
+                        #   };
+                        #   address = pci_address 0 3 4;
+                        # }
+                        # {
+                        #   type = "pci";
+                        #   index = 14;
+                        #   model = "pcie-root-port";
+                        #   hack = {
+                        #     name = "pcie-root-port";
+                        #   };
+                        #   target = {
+                        #     chassis = 14;
+                        #     port = 29;
+                        #   };
+                        #   address = pci_address 0 3 5;
+                        # }
                         {
                           type = "sata";
                           index = 0;

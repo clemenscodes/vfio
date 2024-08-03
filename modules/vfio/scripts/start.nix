@@ -9,12 +9,12 @@ in
       ${pkgs.bash}/bin/set -x
       ${pkgs.systemd}/bin/systemctl stop lactd.service
       ${pkgs.systemd}/bin/systemctl stop display-manager.service
-      echo 0 > /sys/class/vtconsole/vtcon0/bind
-      echo 0 > /sys/class/vtconsole/vtcon1/bind
-      ${pkgs.kmod}/bin/modprobe -r amdgpu
-      sleep 1
-      ${builtins.concatStringsSep "\n" (map (pci: "${pkgs.libvirt}/bin/virsh nodedev-detach ${pci}") pcis)}
-      sleep 1
-      ${pkgs.kmod}/bin/modprobe vfio-pci
+      # echo 0 > /sys/class/vtconsole/vtcon0/bind
+      # echo 0 > /sys/class/vtconsole/vtcon1/bind
+      # ${pkgs.kmod}/bin/modprobe -r amdgpu
+      # sleep 1
+      # ${builtins.concatStringsSep "\n" (map (pci: "${pkgs.libvirt}/bin/virsh nodedev-detach ${pci}") pcis)}
+      # sleep 1
+      # ${pkgs.kmod}/bin/modprobe vfio-pci
     fi
   ''
