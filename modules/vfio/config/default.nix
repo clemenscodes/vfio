@@ -69,13 +69,13 @@ in {
                     type = "usb";
                     bus = 0;
                   };
-                  # drive_address = unit: {
-                  #   inherit unit;
-                  #   type = "drive";
-                  #   controller = 0;
-                  #   bus = 0;
-                  #   target = 0;
-                  # };
+                  drive_address = unit: {
+                    inherit unit;
+                    type = "drive";
+                    controller = 0;
+                    bus = 0;
+                    target = 0;
+                  };
                 in
                   inputs.nixvirt.lib.domain.writeXML {
                     type = "kvm";
