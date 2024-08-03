@@ -320,21 +320,16 @@ in {
                       controller = [
                         {
                           type = "usb";
-                          index = 0;
                           model = "qemu-xhci";
                           ports = 15;
-                          address = pci_address 2 0 0;
                         }
-                        {
-                          type = "pci";
-                          index = 0;
-                          model = "pcie-root";
-                        }
-                        {
-                          type = "sata";
-                          index = 0;
-                          address = pci_address 0 31 2;
-                        }
+                        # {
+                        #   type = "pci";
+                        #   model = "pcie-root";
+                        # }
+                        # {
+                        #   type = "sata";
+                        # }
                       ];
                       interface = {
                         type = "bridge";
