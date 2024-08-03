@@ -207,6 +207,10 @@ in {
                         cores = 10;
                         threads = 2;
                       };
+                      model = {
+                        fallback = "allow";
+                        name = "Broadwell-noTSX-IBRS";
+                      };
                       feature = [
                         {
                           policy = "require";
@@ -216,11 +220,10 @@ in {
                           policy = "disable";
                           name = "mpx";
                         }
-                        # TODO: Causes BSOD
-                        # {
-                        #   policy = "disable";
-                        #   name = "hypervisor";
-                        # }
+                        {
+                          policy = "disable";
+                          name = "hypervisor";
+                        }
                       ];
                     };
                     clock = {
@@ -333,6 +336,25 @@ in {
                           bridge = "virbr0";
                         };
                       };
+                      channel = [
+                        {
+                          type = "spicevmc";
+                          target = {
+                            type = "virtio";
+                            name = "com.redhat.spice.0";
+                          };
+                        }
+                        {
+                          type = "spiceport";
+                          source = {
+                            channel = "org.spice-space.webdav.0";
+                          };
+                          target = {
+                            type = "virtio";
+                            name = "org.spice-space.webdav.0";
+                          };
+                        }
+                      ];
                       input = [
                         {
                           type = "tablet";
@@ -354,22 +376,40 @@ in {
                           version = "2.0";
                         };
                       };
-                      graphics = {
-                        type = "vnc";
-                        port = -1;
-                        autoport = true;
-                        hack = "0.0.0.0";
-                        listen = {
-                          type = "address";
-                          address = "0.0.0.0";
-                        };
-                      };
+                      graphics = [
+                        {
+                          type = "spice";
+                          autoport = true;
+                          listen = {
+                            type = "none";
+                          };
+                          image = {
+                            compression = false;
+                          };
+                          gl = {
+                            enable = false;
+                          };
+                        }
+                        {
+                          type = "vnc";
+                          port = -1;
+                          autoport = true;
+                          hack = "0.0.0.0";
+                          listen = {
+                            type = "address";
+                            address = "0.0.0.0";
+                          };
+                        }
+                      ];
                       sound = {
                         model = "ich9";
                       };
                       audio = {
                         id = 1;
-                        type = "none";
+                        type =
+                          if driver
+                          then "none"
+                          else "spice";
                       };
                       video =
                         lib.optional (!driver) {
@@ -454,6 +494,24 @@ in {
                       memballoon = {
                         model = "virtio";
                       };
+                      redirdev = [
+                        {
+                          bus = "usb";
+                          type = "spicevmc";
+                        }
+                        {
+                          bus = "usb";
+                          type = "spicevmc";
+                        }
+                        {
+                          bus = "usb";
+                          type = "spicevmc";
+                        }
+                        {
+                          bus = "usb";
+                          type = "spicevmc";
+                        }
+                      ];
                     };
                   };
               }
