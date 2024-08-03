@@ -144,6 +144,7 @@ in {
                       acpi = {};
                       apic = {};
                       hyperv = {
+                        mode = "custom";
                         relaxed = {
                           state = true;
                         };
@@ -431,6 +432,9 @@ in {
                         }
                       ];
                       interface = {
+                        mac = {
+                          address = "52:54:00:66:d7:8b";
+                        };
                         type = "bridge";
                         model = {
                           type = "virtio";
@@ -534,7 +538,7 @@ in {
                         model = "itco";
                         action = "reset";
                       };
-                      memballon = {
+                      memballoon = {
                         model = "virtio";
                         address = pci_address 4 0 0;
                       };
