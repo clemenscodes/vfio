@@ -342,7 +342,7 @@ in {
                           version = "2.0";
                         };
                       };
-                      graphics = lib.mkIf (!driver) {
+                      graphics = lib.optional (!driver) {
                         type = "vnc";
                         port = -1;
                         autoport = true;
@@ -360,7 +360,7 @@ in {
                         id = 1;
                         type = "none";
                       };
-                      video = lib.mkIf (!driver) {
+                      video = lib.optional (!driver) {
                         model = {
                           type = "qxl";
                           ram = 65536;
@@ -371,7 +371,7 @@ in {
                           address = pci_address 8 1 0;
                         };
                       };
-                      hostdev = lib.mkIf driver [
+                      hostdev = lib.optional driver [
                         {
                           mode = "subsystem";
                           type = "pci";
