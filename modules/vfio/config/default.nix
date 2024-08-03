@@ -238,11 +238,28 @@ in {
                             type = "raw";
                           };
                           source = {
+                            file = "/var/lib/libvirt/images/win11.iso";
+                            startupPolicy = "mandatory";
+                          };
+                          target = {
+                            bus = "sata";
+                            dev = "sdb";
+                          };
+                          readonly = true;
+                        }
+                        {
+                          type = "file";
+                          device = "cdrom";
+                          driver = {
+                            name = "qemu";
+                            type = "raw";
+                          };
+                          source = {
                             file = "${inputs.nixvirt.lib.guest-install.virtio-win.iso}";
                           };
                           target = {
                             bus = "sata";
-                            dev = "sda";
+                            dev = "sdc";
                           };
                           readonly = true;
                         }
