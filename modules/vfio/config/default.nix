@@ -180,7 +180,6 @@ in {
                       topology = {
                         sockets = 1;
                         dies = 1;
-                        clusters = 1;
                         cores = 10;
                         threads = 2;
                       };
