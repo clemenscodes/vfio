@@ -16,7 +16,7 @@ in {
       kernelParams = ["${cpu}_iommu=on" "iommu=pt"];
       kernelModules = ["vfio" "vfio_pci" "vfio_virqfd" "vfio_iommu_type1"];
       extraModprobeConfig = ''
-        options kvm_${cpu} nested=1
+        options kvm-${cpu} nested=1
       '';
     };
     environment = {
