@@ -337,6 +337,26 @@ in {
                           bridge = "virbr0";
                         };
                       };
+                      channel =
+                        lib.optional (!passthrough)
+                        {
+                          type = "spicevmc";
+                          target = {
+                            type = "virtio";
+                            name = "com.redhat.spice.0";
+                          };
+                        }
+                        ++ lib.optional (!passthrough)
+                        {
+                          type = "spiceport";
+                          source = {
+                            channel = "org.spice-space.webdav.0";
+                          };
+                          target = {
+                            type = "virtio";
+                            name = "org.spice-space.webdav.0";
+                          };
+                        };
                       input = [
                         {
                           type = "tablet";
@@ -393,7 +413,8 @@ in {
                             type = "none";
                           };
                       };
-                      hostdev = lib.optional passthrough [
+                      hostdev =
+                        lib.optional passthrough
                         {
                           mode = "subsystem";
                           type = "pci";
@@ -409,6 +430,7 @@ in {
                           };
                           address = pci_address 3 0 0 // {multifunction = true;};
                         }
+                        ++ lib.optional passthrough
                         {
                           mode = "subsystem";
                           type = "pci";
@@ -424,6 +446,7 @@ in {
                           };
                           address = pci_address 5 0 0;
                         }
+                        ++ lib.optional passthrough
                         {
                           mode = "subsystem";
                           type = "usb";
@@ -438,6 +461,7 @@ in {
                           };
                           address = usb_address 3;
                         }
+                        ++ lib.optional passthrough
                         {
                           mode = "subsystem";
                           type = "usb";
@@ -451,8 +475,7 @@ in {
                             };
                           };
                           address = usb_address 4;
-                        }
-                      ];
+                        };
                       watchdog = {
                         model = "itco";
                         action = "reset";
