@@ -350,7 +350,8 @@ in {
                         };
                         # address = pci_address 1 0 0;
                       };
-                      channel = lib.optional (!driver) [
+                      channel =
+                        lib.optional (!driver)
                         {
                           type = "spicevmc";
                           target = {
@@ -358,17 +359,18 @@ in {
                             name = "com.redhat.spice.0";
                           };
                         }
-                        {
-                          type = "spiceport";
-                          source = {
-                            channel = "org.spice-space.webdav.0";
-                          };
-                          target = {
-                            type = "virtio";
-                            name = "org.spice-space.webdav.0";
-                          };
-                        }
-                      ];
+                        ++ [
+                          {
+                            type = "spiceport";
+                            source = {
+                              channel = "org.spice-space.webdav.0";
+                            };
+                            target = {
+                              type = "virtio";
+                              name = "org.spice-space.webdav.0";
+                            };
+                          }
+                        ];
                       input = [
                         {
                           type = "tablet";
@@ -418,7 +420,7 @@ in {
                       ];
                       sound = {
                         model = "ich9";
-                        address = pci_address 0 27 0;
+                        # address = pci_address 0 27 0;
                       };
                       audio = {
                         id = 1;
@@ -435,7 +437,7 @@ in {
                           vgamem = 16384;
                           heads = 1;
                           primary = true;
-                          address = pci_address 8 1 0;
+                          # address = pci_address 8 1 0;
                         };
                       };
                       hostdev = lib.optional driver [
@@ -506,24 +508,24 @@ in {
                         model = "virtio";
                         address = pci_address 4 0 0;
                       };
-                      redirdev = [
-                        {
-                          bus = "usb";
-                          type = "spicevmc";
-                        }
-                        {
-                          bus = "usb";
-                          type = "spicevmc";
-                        }
-                        {
-                          bus = "usb";
-                          type = "spicevmc";
-                        }
-                        {
-                          bus = "usb";
-                          type = "spicevmc";
-                        }
-                      ];
+                      # redirdev = [
+                      #   {
+                      #     bus = "usb";
+                      #     type = "spicevmc";
+                      #   }
+                      #   {
+                      #     bus = "usb";
+                      #     type = "spicevmc";
+                      #   }
+                      #   {
+                      #     bus = "usb";
+                      #     type = "spicevmc";
+                      #   }
+                      #   {
+                      #     bus = "usb";
+                      #     type = "spicevmc";
+                      #   }
+                      # ];
                     };
                   };
               }
