@@ -483,24 +483,6 @@ in {
                       memballoon = {
                         model = "virtio";
                       };
-                      redirdev = [
-                        {
-                          bus = "usb";
-                          type = "spicevmc";
-                        }
-                        {
-                          bus = "usb";
-                          type = "spicevmc";
-                        }
-                        {
-                          bus = "usb";
-                          type = "spicevmc";
-                        }
-                        {
-                          bus = "usb";
-                          type = "spicevmc";
-                        }
-                      ];
                     };
                   };
               }
