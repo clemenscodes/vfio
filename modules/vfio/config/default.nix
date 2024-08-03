@@ -170,15 +170,21 @@ in {
                       smm = {
                         state = true;
                       };
+                      ioapic = {
+                        driver = "kvm";
+                      };
                     };
                     cpu = {
                       mode = "host-passthrough";
                       check = "none";
+                      topology = {
+                        sockets = 1;
+                        dies = 1;
+                        clusters = 1;
+                        cores = 10;
+                        threads = 2;
+                      };
                       feature = [
-                        {
-                          policy = "disable";
-                          name = "hypervisor";
-                        }
                         {
                           policy = "require";
                           name = "vmx";
@@ -187,14 +193,11 @@ in {
                           policy = "disable";
                           name = "mpx";
                         }
+                        # {
+                        #   policy = "disable";
+                        #   name = "hypervisor";
+                        # }
                       ];
-                      topology = {
-                        sockets = 1;
-                        dies = 1;
-                        clusters = 1;
-                        cores = 10;
-                        threads = 2;
-                      };
                     };
                     clock = {
                       offset = "localtime";
