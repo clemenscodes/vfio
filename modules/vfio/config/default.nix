@@ -253,6 +253,7 @@ in {
                             order = 2;
                           };
                           readonly = true;
+                          address = drive_address 1;
                         }
                         {
                           type = "file";
@@ -269,6 +270,7 @@ in {
                             dev = "sdc";
                           };
                           readonly = true;
+                          address = drive_address 2;
                         }
                       ];
                       controller = [
