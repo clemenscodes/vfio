@@ -493,13 +493,19 @@ in {
                   };
                   volumes = [
                     {
-                      present = true;
+                      type = "file";
                       name = vm;
                       definition = inputs.nixvirt.lib.volume.writeXML {
                         name = vm;
+                        present = true;
                         capacity = {
                           count = 64;
                           unit = "GB";
+                        };
+                        target = {
+                          format = {
+                            type = "qcow2";
+                          };
                         };
                       };
                     }
