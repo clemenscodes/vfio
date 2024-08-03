@@ -328,7 +328,7 @@ in {
                           ports = 15;
                         }
                       ];
-                      interface = lib.optional internet {
+                      interface = lib.mkIf internet {
                         type = "bridge";
                         model = {
                           type = "virtio";
