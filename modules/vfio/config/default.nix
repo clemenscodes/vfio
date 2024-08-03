@@ -135,7 +135,7 @@ in {
                         path = "/var/lib/libvirt/qemu/nvram/win11_VARS.fd";
                       };
                       bootmenu = {
-                        enable = true;
+                        enable = false;
                       };
                     };
                     features = {
@@ -152,6 +152,10 @@ in {
                         spinlocks = {
                           state = true;
                           retries = 8191;
+                        };
+                        vendor_id = {
+                          state = true;
+                          value = "GenuineIntel";
                         };
                         vpindex = {
                           state = true;
@@ -170,10 +174,6 @@ in {
                         };
                         reset = {
                           state = true;
-                        };
-                        vendor_id = {
-                          state = true;
-                          value = "GenuineIntel";
                         };
                         frequencies = {
                           state = true;
@@ -351,26 +351,26 @@ in {
                         # address = pci_address 1 0 0;
                       };
                       channel =
-                        lib.optional (!driver)
+                        # lib.optional (!driver)
+                        # {
+                        #   type = "spicevmc";
+                        #   target = {
+                        #     type = "virtio";
+                        #     name = "com.redhat.spice.0";
+                        #   };
+                        # }
+                        # ++ [
                         {
-                          type = "spicevmc";
+                          type = "spiceport";
+                          source = {
+                            channel = "org.spice-space.webdav.0";
+                          };
                           target = {
                             type = "virtio";
-                            name = "com.redhat.spice.0";
+                            name = "org.spice-space.webdav.0";
                           };
-                        }
-                        ++ [
-                          {
-                            type = "spiceport";
-                            source = {
-                              channel = "org.spice-space.webdav.0";
-                            };
-                            target = {
-                              type = "virtio";
-                              name = "org.spice-space.webdav.0";
-                            };
-                          }
-                        ];
+                        };
+                      # ];
                       input = [
                         {
                           type = "tablet";
@@ -508,24 +508,24 @@ in {
                         model = "virtio";
                         address = pci_address 4 0 0;
                       };
-                      # redirdev = [
-                      #   {
-                      #     bus = "usb";
-                      #     type = "spicevmc";
-                      #   }
-                      #   {
-                      #     bus = "usb";
-                      #     type = "spicevmc";
-                      #   }
-                      #   {
-                      #     bus = "usb";
-                      #     type = "spicevmc";
-                      #   }
-                      #   {
-                      #     bus = "usb";
-                      #     type = "spicevmc";
-                      #   }
-                      # ];
+                      redirdev = [
+                        {
+                          bus = "usb";
+                          type = "spicevmc";
+                        }
+                        {
+                          bus = "usb";
+                          type = "spicevmc";
+                        }
+                        {
+                          bus = "usb";
+                          type = "spicevmc";
+                        }
+                        {
+                          bus = "usb";
+                          type = "spicevmc";
+                        }
+                      ];
                     };
                   };
               }
