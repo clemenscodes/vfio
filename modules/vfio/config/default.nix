@@ -80,6 +80,7 @@ in {
                   inputs.nixvirt.lib.domain.writeXML {
                     type = "kvm";
                     name = vm;
+                    uuid = "b8d2d9c9-4088-4288-b668-e12a9fb6d2bb";
                     metadata = with inputs.nixvirt.lib.xml; [
                       (
                         elem "libosinfo:libosinfo" [
@@ -277,7 +278,7 @@ in {
                           boot = {
                             order = 1;
                           };
-                          address = drive_address 0;
+                          # address = drive_address 0;
                         }
                         {
                           type = "file";
@@ -298,7 +299,7 @@ in {
                             order = 2;
                           };
                           readonly = true;
-                          address = drive_address 1;
+                          # address = drive_address 1;
                         }
                         {
                           type = "file";
@@ -315,7 +316,7 @@ in {
                             dev = "sdc";
                           };
                           readonly = true;
-                          address = drive_address 2;
+                          # address = drive_address 2;
                         }
                       ];
                       controller = [
@@ -338,9 +339,9 @@ in {
                         }
                       ];
                       interface = {
-                        mac = {
-                          address = "52:54:00:66:d7:8b";
-                        };
+                        # mac = {
+                        #   address = "52:54:00:66:d7:8b";
+                        # };
                         type = "bridge";
                         model = {
                           type = "virtio";
@@ -348,32 +349,32 @@ in {
                         source = {
                           bridge = "virbr0";
                         };
-                        address = pci_address 1 0 0;
+                        # address = pci_address 1 0 0;
                       };
-                      channel = lib.optional (!driver) {
-                        type = "spicevmc";
-                        target = {
-                          type = "virtio";
-                          name = "com.redhat.spice.0";
-                        };
-                      };
-                      # ++ [
-                      # {
-                      #   type = "spiceport";
-                      #   source = {
-                      #     channel = "org.spice-space.webdav.0";
-                      #   };
-                      #   target = {
-                      #     type = "virtio";
-                      #     name = "org.spice-space.webdav.0";
-                      #   };
-                      # };
-                      # ];
+                      channel = [
+                        {
+                          type = "spicevmc";
+                          target = {
+                            type = "virtio";
+                            name = "com.redhat.spice.0";
+                          };
+                        }
+                        {
+                          type = "spiceport";
+                          source = {
+                            channel = "org.spice-space.webdav.0";
+                          };
+                          target = {
+                            type = "virtio";
+                            name = "org.spice-space.webdav.0";
+                          };
+                        }
+                      ];
                       input = [
                         {
                           type = "tablet";
                           bus = "usb";
-                          address = usb_address 1;
+                          # address = usb_address 1;
                         }
                         {
                           type = "mouse";
@@ -391,34 +392,34 @@ in {
                           version = "2.0";
                         };
                       };
-                      graphics = lib.optional (!driver) {
-                        # {
-                        #   type = "spice";
-                        #   autoport = true;
-                        #   listen = {
-                        #     type = "none";
-                        #   };
-                        #   image = {
-                        #     compression = false;
-                        #   };
-                        #   gl = {
-                        #     enable = false;
-                        #   };
-                        # }
-                        # {
-                        type = "vnc";
-                        port = -1;
-                        autoport = true;
-                        hack = "0.0.0.0";
-                        listen = {
-                          type = "address";
-                          address = "0.0.0.0";
-                        };
-                      };
-                      # ];
+                      graphics = [
+                        {
+                          type = "spice";
+                          autoport = true;
+                          listen = {
+                            type = "none";
+                          };
+                          image = {
+                            compression = false;
+                          };
+                          gl = {
+                            enable = false;
+                          };
+                        }
+                        {
+                          type = "vnc";
+                          port = -1;
+                          autoport = true;
+                          hack = "0.0.0.0";
+                          listen = {
+                            type = "address";
+                            address = "0.0.0.0";
+                          };
+                        }
+                      ];
                       sound = {
                         model = "ich9";
-                        address = pci_address 0 27 0;
+                        # address = pci_address 0 27 0;
                       };
                       audio = {
                         id = 1;
@@ -427,17 +428,23 @@ in {
                           then "none"
                           else "spice";
                       };
-                      video = lib.optional (!driver) {
-                        model = {
-                          type = "qxl";
-                          ram = 65536;
-                          vram = 65536;
-                          vgamem = 16384;
-                          heads = 1;
-                          primary = true;
-                          address = pci_address 8 1 0;
+                      video =
+                        lib.optional (!driver) {
+                          model = {
+                            type = "qxl";
+                            ram = 65536;
+                            vram = 65536;
+                            vgamem = 16384;
+                            heads = 1;
+                            primary = true;
+                            # address = pci_address 8 1 0;
+                          };
+                        }
+                        ++ lib.optional driver {
+                          model = {
+                            type = "none";
+                          };
                         };
-                      };
                       hostdev = lib.optional driver [
                         {
                           mode = "subsystem";
@@ -504,7 +511,7 @@ in {
                       };
                       memballoon = {
                         model = "virtio";
-                        address = pci_address 4 0 0;
+                        # address = pci_address 4 0 0;
                       };
                       redirdev = [
                         {
@@ -532,6 +539,7 @@ in {
               {
                 definition = inputs.nixvirt.lib.network.writeXML {
                   name = "default";
+                  uuid = "fd64df3b-30ed-495c-ba06-b2f292c10d92";
                   forward = {
                     mode = "nat";
                     nat = {
@@ -546,9 +554,9 @@ in {
                     stp = true;
                     delay = 0;
                   };
-                  mac = {
-                    address = "52:54:00:b2:ca:8d";
-                  };
+                  # mac = {
+                  #   address = "52:54:00:b2:ca:8d";
+                  # };
                   ip = {
                     address = "192.168.122.1";
                     netmask = "255.255.255.0";
@@ -567,6 +575,7 @@ in {
               {
                 definition = inputs.nixvirt.lib.pool.writeXML {
                   name = "default";
+                  uuid = "8c75fdf7-68e0-4089-8a34-0ab56c7c3c40";
                   type = "dir";
                   target = {
                     path = "/var/lib/libvirt/images";
