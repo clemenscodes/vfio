@@ -377,31 +377,16 @@ in {
                           version = "2.0";
                         };
                       };
-                      graphics = [
-                        {
-                          type = "spice";
-                          autoport = true;
-                          listen = {
-                            type = "none";
-                          };
-                          image = {
-                            compression = false;
-                          };
-                          gl = {
-                            enable = false;
-                          };
-                        }
-                        {
-                          type = "vnc";
-                          port = -1;
-                          autoport = true;
-                          hack = "0.0.0.0";
-                          listen = {
-                            type = "address";
-                            address = "0.0.0.0";
-                          };
-                        }
-                      ];
+                      graphics = {
+                        type = "vnc";
+                        port = -1;
+                        autoport = true;
+                        hack = "0.0.0.0";
+                        listen = {
+                          type = "address";
+                          address = "0.0.0.0";
+                        };
+                      };
                       sound = {
                         model = "ich9";
                       };
@@ -412,22 +397,21 @@ in {
                           then "none"
                           else "spice";
                       };
-                      video =
-                        lib.optional (!passthrough) {
-                          model = {
+                      video = {
+                        model =
+                          if passthrough
+                          then {
                             type = "qxl";
                             ram = 65536;
                             vram = 65536;
                             vgamem = 16384;
                             heads = 1;
                             primary = true;
-                          };
-                        }
-                        ++ lib.optional passthrough {
-                          model = {
+                          }
+                          else {
                             type = "none";
                           };
-                        };
+                      };
                       hostdev = lib.optional passthrough [
                         {
                           mode = "subsystem";
