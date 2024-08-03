@@ -69,13 +69,6 @@ in {
                     type = "usb";
                     bus = 0;
                   };
-                  drive_address = unit: {
-                    inherit unit;
-                    type = "drive";
-                    controller = 0;
-                    bus = 0;
-                    target = 0;
-                  };
                 in
                   inputs.nixvirt.lib.domain.writeXML {
                     type = "kvm";
@@ -158,36 +151,36 @@ in {
                           state = true;
                           value = "GenuineIntel";
                         };
-                        # vpindex = {
-                        #   state = true;
-                        # };
-                        # runtime = {
-                        #   state = true;
-                        # };
-                        # synic = {
-                        #   state = true;
-                        # };
-                        # stimer = {
-                        #   state = true;
-                        #   direct = {
-                        #     state = true;
-                        #   };
-                        # };
-                        # reset = {
-                        #   state = true;
-                        # };
-                        # frequencies = {
-                        #   state = true;
-                        # };
-                        # reenlightenment = {
-                        #   state = true;
-                        # };
-                        # tlbflush = {
-                        #   state = true;
-                        # };
-                        # ipi = {
-                        #   state = true;
-                        # };
+                        vpindex = {
+                          state = true;
+                        };
+                        runtime = {
+                          state = true;
+                        };
+                        synic = {
+                          state = true;
+                        };
+                        stimer = {
+                          state = true;
+                          direct = {
+                            state = true;
+                          };
+                        };
+                        reset = {
+                          state = true;
+                        };
+                        frequencies = {
+                          state = true;
+                        };
+                        reenlightenment = {
+                          state = true;
+                        };
+                        tlbflush = {
+                          state = true;
+                        };
+                        ipi = {
+                          state = true;
+                        };
                       };
                       kvm = {
                         hidden = {
@@ -210,6 +203,7 @@ in {
                       topology = {
                         sockets = 1;
                         dies = 1;
+                        clusters = 1;
                         cores = 10;
                         threads = 2;
                       };
@@ -222,10 +216,11 @@ in {
                           policy = "disable";
                           name = "mpx";
                         }
-                        {
-                          policy = "disable";
-                          name = "hypervisor";
-                        }
+                        # TODO: Causes BSOD
+                        # {
+                        #   policy = "disable";
+                        #   name = "hypervisor";
+                        # }
                       ];
                     };
                     clock = {
@@ -276,9 +271,11 @@ in {
                             bus = "virtio";
                           };
                           boot = {
-                            order = 1;
+                            order =
+                              if driver
+                              then 1
+                              else 2;
                           };
-                          # address = drive_address 0;
                         }
                         {
                           type = "file";
@@ -296,10 +293,12 @@ in {
                             dev = "sdb";
                           };
                           boot = {
-                            order = 2;
+                            order =
+                              if driver
+                              then 2
+                              else 1;
                           };
                           readonly = true;
-                          # address = drive_address 1;
                         }
                         {
                           type = "file";
@@ -316,7 +315,6 @@ in {
                             dev = "sdc";
                           };
                           readonly = true;
-                          # address = drive_address 2;
                         }
                       ];
                       controller = [
@@ -339,9 +337,6 @@ in {
                         }
                       ];
                       interface = {
-                        # mac = {
-                        #   address = "52:54:00:66:d7:8b";
-                        # };
                         type = "bridge";
                         model = {
                           type = "virtio";
@@ -349,7 +344,6 @@ in {
                         source = {
                           bridge = "virbr0";
                         };
-                        # address = pci_address 1 0 0;
                       };
                       channel = [
                         {
@@ -374,7 +368,6 @@ in {
                         {
                           type = "tablet";
                           bus = "usb";
-                          # address = usb_address 1;
                         }
                         {
                           type = "mouse";
@@ -419,7 +412,6 @@ in {
                       ];
                       sound = {
                         model = "ich9";
-                        # address = pci_address 0 27 0;
                       };
                       audio = {
                         id = 1;
@@ -437,7 +429,6 @@ in {
                             vgamem = 16384;
                             heads = 1;
                             primary = true;
-                            # address = pci_address 8 1 0;
                           };
                         }
                         ++ lib.optional driver {
@@ -511,7 +502,6 @@ in {
                       };
                       memballoon = {
                         model = "virtio";
-                        # address = pci_address 4 0 0;
                       };
                       redirdev = [
                         {
@@ -554,9 +544,6 @@ in {
                     stp = true;
                     delay = 0;
                   };
-                  # mac = {
-                  #   address = "52:54:00:b2:ca:8d";
-                  # };
                   ip = {
                     address = "192.168.122.1";
                     netmask = "255.255.255.0";
