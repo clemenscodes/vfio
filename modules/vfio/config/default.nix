@@ -690,7 +690,20 @@ in {
                             type = "virtiofs";
                           };
                           source = {
-                            dir = "/home/${user}/.local/documents";
+                            dir = "/home/${user}/.local/src";
+                          };
+                          target = {
+                            dir = "src";
+                          };
+                        }
+                        {
+                          type = "mount";
+                          accessmode = "passthrough";
+                          driver = {
+                            type = "virtiofs";
+                          };
+                          source = {
+                            dir = "/home/${user}/.local/share/documents";
                           };
                           target = {
                             dir = "documents";
@@ -703,7 +716,7 @@ in {
                             type = "virtiofs";
                           };
                           source = {
-                            dir = "/home/${user}/.local/images";
+                            dir = "/home/${user}/.local/share/images";
                           };
                           target = {
                             dir = "images";
@@ -716,7 +729,7 @@ in {
                             type = "virtiofs";
                           };
                           source = {
-                            dir = "/home/${user}/.local/videos";
+                            dir = "/home/${user}/.local/share/videos";
                           };
                           target = {
                             dir = "videos";
@@ -760,7 +773,7 @@ in {
                         }
                       ];
                       tpm = {
-                        model = "tpm-crb";
+                        model = "tpm-tis";
                         backend = {
                           type = "emulator";
                           version = "2.0";
