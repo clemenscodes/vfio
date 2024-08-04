@@ -20,6 +20,7 @@ in {
           example = "win11";
         };
         passthrough = mkEnableOption "Whether GPU should be passed through." // {default = false;};
+        display = mkEnableOption "Whether to enable a display device." // {default = false;};
         user = mkOption {
           type = types.str;
           description = "User for which to configure VFIO.";

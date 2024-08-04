@@ -5,7 +5,7 @@ inputs: {
   ...
 }: let
   cfg = config.virtualisation.vfio;
-  inherit (cfg) vm cpu user ovmf hooks passthrough;
+  inherit (cfg) vm cpu user ovmf hooks passthrough display;
 in {
   imports = [
     ./vnc
@@ -394,17 +394,17 @@ in {
                       };
                       video = {
                         model =
-                          if passthrough
+                          if display
                           then {
-                            type = "none";
-                          }
-                          else {
                             type = "qxl";
                             ram = 65536;
                             vram = 65536;
                             vgamem = 16384;
                             heads = 1;
                             primary = true;
+                          }
+                          else {
+                            type = "none";
                           };
                       };
                       hostdev =
