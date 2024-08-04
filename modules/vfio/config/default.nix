@@ -341,18 +341,14 @@ in {
                       };
                     };
                     cpu = {
-                      mode = "custom";
-                      check = "partial";
-                      match = "exact";
+                      mode = "host-passthrough";
+                      check = "none";
+                      migratable = true;
                       topology = {
                         sockets = 1;
                         dies = 1;
                         cores = 10;
                         threads = 2;
-                      };
-                      model = {
-                        fallback = "allow";
-                        name = "Broadwell-noTSX-IBRS";
                       };
                       feature = [
                         {
@@ -413,8 +409,8 @@ in {
                             file = "/var/lib/libvirt/images/win11.qcow2";
                           };
                           target = {
-                            dev = "vda";
-                            bus = "virtio";
+                            dev = "sda";
+                            bus = "sata";
                           };
                           boot = {
                             order =
@@ -662,79 +658,14 @@ in {
                             dir = "music";
                           };
                         }
-                        # {
-                        #   type = "mount";
-                        #   accessmode = "passthrough";
-                        #   driver = {
-                        #     type = "virtiofs";
-                        #   };
-                        #   source = {
-                        #     dir = "/home/${user}/.local/src";
-                        #   };
-                        #   target = {
-                        #     dir = "src";
-                        #   };
-                        # }
-                        # {
-                        #   type = "mount";
-                        #   accessmode = "passthrough";
-                        #   driver = {
-                        #     type = "virtiofs";
-                        #   };
-                        #   source = {
-                        #     dir = "/home/${user}/.local/share/documents";
-                        #   };
-                        #   target = {
-                        #     dir = "documents";
-                        #   };
-                        # }
-                        # {
-                        #   type = "mount";
-                        #   accessmode = "passthrough";
-                        #   driver = {
-                        #     type = "virtiofs";
-                        #   };
-                        #   source = {
-                        #     dir = "/home/${user}/.local/share/images";
-                        #   };
-                        #   target = {
-                        #     dir = "images";
-                        #   };
-                        # }
-                        # {
-                        #   type = "mount";
-                        #   accessmode = "passthrough";
-                        #   driver = {
-                        #     type = "virtiofs";
-                        #   };
-                        #   source = {
-                        #     dir = "/home/${user}/.local/share/videos";
-                        #   };
-                        #   target = {
-                        #     dir = "videos";
-                        #   };
-                        # }
-                        # {
-                        #   type = "mount";
-                        #   accessmode = "passthrough";
-                        #   driver = {
-                        #     type = "virtiofs";
-                        #   };
-                        #   source = {
-                        #     dir = "/home/${user}/.ssh";
-                        #   };
-                        #   target = {
-                        #     dir = "ssh";
-                        #   };
-                        # }
                       ];
                       interface = {
-                        type = "bridge";
+                        type = "network";
                         model = {
-                          type = "virtio";
+                          type = "e1000e";
                         };
                         source = {
-                          bridge = "virbr0";
+                          network = "default";
                         };
                       };
                       input = [
