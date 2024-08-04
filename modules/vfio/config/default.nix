@@ -40,6 +40,7 @@ in {
       services = {
         libvirtd = {
           preStart = ''
+            mkdir -p /var/lib/libvirt/vgabios
             ln -sf ${hooks.qemu}/bin/qemu /var/lib/libvirt/hooks/qemu
             ln -sf ${./Sapphire.RX7900XTX.24576.221129.rom} /var/lib/libvirt/vgabios/vbios.rom
           '';
