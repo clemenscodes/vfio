@@ -333,7 +333,9 @@ in {
                       filesystem = {
                         type = "mount";
                         accessmode = "passthrough";
-                        driver = "virtiofs";
+                        driver = {
+                          name = "virtiofs";
+                        };
                         source = {
                           dir = "/home/${user}/.local/share";
                         };
