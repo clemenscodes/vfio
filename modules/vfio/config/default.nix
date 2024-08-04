@@ -158,36 +158,6 @@ in {
                           state = true;
                           value = "GenuineIntel";
                         };
-                        vpindex = {
-                          state = true;
-                        };
-                        runtime = {
-                          state = true;
-                        };
-                        synic = {
-                          state = true;
-                        };
-                        stimer = {
-                          state = true;
-                          direct = {
-                            state = true;
-                          };
-                        };
-                        reset = {
-                          state = true;
-                        };
-                        frequencies = {
-                          state = true;
-                        };
-                        reenlightenment = {
-                          state = true;
-                        };
-                        tlbflush = {
-                          state = true;
-                        };
-                        ipi = {
-                          state = true;
-                        };
                       };
                       kvm = {
                         hidden = {
@@ -199,9 +169,6 @@ in {
                       };
                       smm = {
                         state = true;
-                      };
-                      ioapic = {
-                        driver = "kvm";
                       };
                     };
                     cpu = {
@@ -575,7 +542,7 @@ in {
                           version = "2.0";
                         };
                       };
-                      graphics = {
+                      graphics = lib.optional (!display) {
                         type = "vnc";
                         port = -1;
                         autoport = true;
@@ -625,12 +592,6 @@ in {
                           rom = {
                             bar = false;
                           };
-                          address =
-                            source_address 3 0 0
-                            // {
-                              type = "pci";
-                              multifunction = true;
-                            };
                         }
                         ++ lib.optional passthrough
                         {
