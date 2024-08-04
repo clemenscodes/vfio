@@ -70,6 +70,14 @@ in {
                   };
                 in
                   inputs.nixvirt.lib.domain.writeXML {
+                    "xmlns:qemu" = "http://libvirt.org/schemas/domain/qemu/1.0";
+                    "qemu:capabilities" = [
+                      {
+                        "qemu:del" = {
+                          capability = "usb-host.hostdevice";
+                        };
+                      }
+                    ];
                     type = "kvm";
                     name = vm;
                     uuid = "99901f8b-8c80-9518-a6a1-2cf05dcd371e";
@@ -777,6 +785,20 @@ in {
                             };
                             product = {
                               id = "0xc539";
+                            };
+                          };
+                        }
+                        ++ lib.optional passthrough
+                        {
+                          mode = "subsystem";
+                          type = "usb";
+                          managed = true;
+                          source = {
+                            vendor = {
+                              id = "0x8087";
+                            };
+                            product = {
+                              id = "0x0aa7";
                             };
                           };
                         };
