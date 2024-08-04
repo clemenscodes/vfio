@@ -6,11 +6,10 @@
 in
   pkgs.writeShellScriptBin "start.sh" ''
     if [ "$1" = "${vm}" ] && [ "$2" = "prepare" ] && [ "$3" = "begin" ]; then
-      set -x
+      ${pkgs.mullvad}/bin/mullvad disconnect
       ${
       if passthrough
       then ''
-        ${pkgs.mullvad}/bin/mullvad disconnect
         ${pkgs.systemd}/bin/systemctl stop lactd.service
         ${pkgs.systemd}/bin/systemctl stop display-manager.service
         echo 0 > /sys/class/vtconsole/vtcon0/bind
