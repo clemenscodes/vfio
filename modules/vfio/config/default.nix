@@ -781,10 +781,7 @@ in {
                       };
                       audio = {
                         id = 1;
-                        type =
-                          if passthrough
-                          then "none"
-                          else "spice";
+                        type = "none";
                       };
                       video = {
                         model =
