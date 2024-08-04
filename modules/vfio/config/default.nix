@@ -88,6 +88,111 @@ in {
                         ]
                       )
                     ];
+                    sysinfo = {
+                      type = "smbios";
+                      bios = [
+                        {
+                          entry = {
+                            name = "vendor";
+                            value = "American Megatrends Inc.";
+                          };
+                        }
+                        {
+                          entry = {
+                            name = "version";
+                            value = "1.30";
+                          };
+                        }
+                        {
+                          entry = {
+                            name = "date";
+                            value = "10/14/2020";
+                          };
+                        }
+                        {
+                          entry = {
+                            name = "release";
+                            value = "5.17";
+                          };
+                        }
+                      ];
+                      system = [
+                        {
+                          entry = {
+                            name = "manufacturer";
+                            value = "Micro-Star International Co., Ltd.";
+                          };
+                        }
+                        {
+                          entry = {
+                            name = "product";
+                            value = "MS-7C83";
+                          };
+                        }
+                        {
+                          entry = {
+                            name = "version";
+                            value = "1.0";
+                          };
+                        }
+                        {
+                          entry = {
+                            name = "serial";
+                            value = "Default string";
+                          };
+                        }
+                        {
+                          entry = {
+                            name = "uuid";
+                            value = "99901f8b-8c80-9518-a6a1-2cf05dcd371e";
+                          };
+                        }
+                        {
+                          entry = {
+                            name = "sku";
+                            value = "Default string";
+                          };
+                        }
+                        {
+                          entry = {
+                            name = "family";
+                            value = "Default string";
+                          };
+                        }
+                      ];
+                      baseBoard = [
+                        {
+                          entry = {
+                            name = "manufacturer";
+                            value = "Micro-Star International Co., Ltd.";
+                          };
+                        }
+                        {
+                          entry = {
+                            name = "product";
+                            value = "B460M PRO-VDH WIFI (MS-7C83)";
+                          };
+                        }
+                        {
+                          entry = {
+                            name = "version";
+                            value = "1.0";
+                          };
+                        }
+                        {
+                          entry = {
+                            name = "serial";
+                            value = "07C8310_KA1C078357";
+                          };
+                        }
+                        {
+                          entry = {
+                            name = "asset";
+                            value = "Default string";
+                          };
+                        }
+                      ];
+                    };
                     memory = {
                       unit = "KiB";
                       count = 16777216 * 2;
@@ -820,111 +925,6 @@ in {
                       };
                       memballoon = {
                         model = "virtio";
-                      };
-                      sysinfo = {
-                        type = "smbios";
-                        bios = [
-                          {
-                            entry = {
-                              name = "vendor";
-                              value = "American Megatrends Inc.";
-                            };
-                          }
-                          {
-                            entry = {
-                              name = "version";
-                              value = "1.30";
-                            };
-                          }
-                          {
-                            entry = {
-                              name = "date";
-                              value = "10/14/2020";
-                            };
-                          }
-                          {
-                            entry = {
-                              name = "release";
-                              value = "5.17";
-                            };
-                          }
-                        ];
-                        system = [
-                          {
-                            entry = {
-                              name = "manufacturer";
-                              value = "Micro-Star International Co., Ltd.";
-                            };
-                          }
-                          {
-                            entry = {
-                              name = "product";
-                              value = "MS-7C83";
-                            };
-                          }
-                          {
-                            entry = {
-                              name = "version";
-                              value = "1.0";
-                            };
-                          }
-                          {
-                            entry = {
-                              name = "serial";
-                              value = "Default string";
-                            };
-                          }
-                          {
-                            entry = {
-                              name = "uuid";
-                              value = "99901f8b-8c80-9518-a6a1-2cf05dcd371e";
-                            };
-                          }
-                          {
-                            entry = {
-                              name = "sku";
-                              value = "Default string";
-                            };
-                          }
-                          {
-                            entry = {
-                              name = "family";
-                              value = "Default string";
-                            };
-                          }
-                        ];
-                        baseBoard = [
-                          {
-                            entry = {
-                              name = "manufacturer";
-                              value = "Micro-Star International Co., Ltd.";
-                            };
-                          }
-                          {
-                            entry = {
-                              name = "product";
-                              value = "B460M PRO-VDH WIFI (MS-7C83)";
-                            };
-                          }
-                          {
-                            entry = {
-                              name = "version";
-                              value = "1.0";
-                            };
-                          }
-                          {
-                            entry = {
-                              name = "serial";
-                              value = "07C8310_KA1C078357";
-                            };
-                          }
-                          {
-                            entry = {
-                              name = "asset";
-                              value = "Default string";
-                            };
-                          }
-                        ];
                       };
                     };
                   };
