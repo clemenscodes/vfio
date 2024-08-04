@@ -629,7 +629,7 @@ in {
                             source_address 3 0 0
                             // {
                               type = "pci";
-                              multifunction = "on";
+                              multifunction = true;
                             };
                         }
                         ++ lib.optional passthrough
