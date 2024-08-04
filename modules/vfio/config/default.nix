@@ -16,7 +16,12 @@ in {
       kernelParams = ["${cpu}_iommu=on" "iommu=pt"];
       kernelModules = ["vfio" "vfio_pci" "vfio_virqfd" "vfio_iommu_type1"];
       extraModprobeConfig = ''
-        options kvm-${cpu} nested=1 kvm ignore_msrs=1 report_ignored_msrs=0
+        options kvm-${cpu} nested=1
+        options kvm ignore_msrs=1
+        options kvm report_ignored_msrs=0
+        options vfio_iommu_type1 allow_unsafe_interrupts=1
+        options vfio_pci disable_vga=1
+        options vfio_pci enable_sriov=1
       '';
     };
     environment = {
@@ -440,7 +445,7 @@ in {
                             address = source_address 3 0 0;
                           };
                           rom = {
-                            bar = false;
+                            bar = true;
                           };
                         }
                         ++ lib.optional passthrough
@@ -455,7 +460,7 @@ in {
                             address = source_address 3 0 1;
                           };
                           rom = {
-                            bar = false;
+                            bar = true;
                           };
                         }
                         ++ lib.optional passthrough
