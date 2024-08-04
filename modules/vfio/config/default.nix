@@ -328,9 +328,27 @@ in {
                           state = true;
                           retries = 8191;
                         };
+                        vpindex = {
+                          state = true;
+                        };
+                        runtime = {
+                          state = true;
+                        };
+                        synic= {
+                          state = true;
+                        };
+                        stimer = {
+                          state = true;
+                        };
+                        reset = {
+                          state = true;
+                        };
                         vendor_id = {
                           state = true;
                           value = "GenuineIntel";
+                        };
+                        frequencies = {
+                          state = true;
                         };
                       };
                       kvm = {
@@ -340,9 +358,6 @@ in {
                       };
                       vmport = {
                         state = false;
-                      };
-                      smm = {
-                        state = true;
                       };
                       ioapic = {
                         driver = "kvm";
@@ -370,6 +385,14 @@ in {
                         {
                           policy = "disable";
                           name = "mpx";
+                        }
+                        {
+                          policy = "disable";
+                          name = "svm";
+                        }
+                        {
+                          policy = "require";
+                          name = "topoext";
                         }
                       ];
                     };
