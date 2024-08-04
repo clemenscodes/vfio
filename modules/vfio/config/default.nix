@@ -16,7 +16,7 @@ in {
       kernelParams = ["${cpu}_iommu=on" "iommu=pt"];
       kernelModules = ["vfio" "vfio_pci" "vfio_virqfd" "vfio_iommu_type1"];
       extraModprobeConfig = ''
-        options kvm-${cpu} nested=1
+        options kvm_${cpu} nested=1
         options kvm ignore_msrs=1
         options kvm report_ignored_msrs=0
         options vfio_iommu_type1 allow_unsafe_interrupts=1
