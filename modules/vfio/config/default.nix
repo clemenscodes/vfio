@@ -16,7 +16,7 @@ in {
       kernelParams = ["${cpu}_iommu=on" "iommu=pt"];
       kernelModules = ["vfio" "vfio_pci" "vfio_virqfd" "vfio_iommu_type1"];
       extraModprobeConfig = ''
-        options kvm-${cpu} nested=1
+        options kvm-${cpu} nested=1 kvm ignore_msrs=1 report_ignored_msrs=0
       '';
     };
     environment = {
@@ -206,7 +206,6 @@ in {
                       topology = {
                         sockets = 1;
                         dies = 1;
-                        clusters = 1;
                         cores = 10;
                         threads = 2;
                       };
