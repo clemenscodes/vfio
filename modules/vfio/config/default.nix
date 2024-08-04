@@ -90,11 +90,11 @@ in {
                     ];
                     memory = {
                       unit = "KiB";
-                      count = 16777216;
+                      count = 16777216 * 2;
                     };
                     currentMemory = {
                       unit = "KiB";
-                      count = 16777216;
+                      count = 16777216 * 2;
                     };
                     memoryBacking = {
                       source = {
@@ -107,6 +107,90 @@ in {
                     vcpu = {
                       placement = "static";
                       count = 20;
+                    };
+                    cputune = {
+                      vcpupin = [
+                        {
+                          vcpu = 0;
+                          cpuset = 0;
+                        }
+                        {
+                          vcpu = 1;
+                          cpuset = 10;
+                        }
+                        {
+                          vcpu = 2;
+                          cpuset = 1;
+                        }
+                        {
+                          vcpu = 3;
+                          cpuset = 11;
+                        }
+                        {
+                          vcpu = 4;
+                          cpuset = 2;
+                        }
+                        {
+                          vcpu = 5;
+                          cpuset = 12;
+                        }
+                        {
+                          vcpu = 6;
+                          cpuset = 3;
+                        }
+                        {
+                          vcpu = 7;
+                          cpuset = 13;
+                        }
+                        {
+                          vcpu = 8;
+                          cpuset = 4;
+                        }
+                        {
+                          vcpu = 9;
+                          cpuset = 14;
+                        }
+                        {
+                          vcpu = 10;
+                          cpuset = 5;
+                        }
+                        {
+                          vcpu = 11;
+                          cpuset = 15;
+                        }
+                        {
+                          vcpu = 12;
+                          cpuset = 6;
+                        }
+                        {
+                          vcpu = 13;
+                          cpuset = 16;
+                        }
+                        {
+                          vcpu = 14;
+                          cpuset = 7;
+                        }
+                        {
+                          vcpu = 15;
+                          cpuset = 17;
+                        }
+                        {
+                          vcpu = 16;
+                          cpuset = 8;
+                        }
+                        {
+                          vcpu = 17;
+                          cpuset = 18;
+                        }
+                        {
+                          vcpu = 18;
+                          cpuset = 9;
+                        }
+                        {
+                          vcpu = 19;
+                          cpuset = 19;
+                        }
+                      ];
                     };
                     os = {
                       hack = "efi";
@@ -158,6 +242,21 @@ in {
                           state = true;
                           value = "GenuineIntel";
                         };
+                        vpindex = {
+                          state = true;
+                        };
+                        synic = {
+                          state = true;
+                        };
+                        stimer = {
+                          state = true;
+                        };
+                        reset = {
+                          state = true;
+                        };
+                        frequencies = {
+                          state = true;
+                        };
                       };
                       kvm = {
                         hidden = {
@@ -175,6 +274,9 @@ in {
                       mode = "custom";
                       check = "partial";
                       match = "exact";
+                      cache = {
+                        mode = "passthrough";
+                      };
                       topology = {
                         sockets = 1;
                         dies = 1;
@@ -187,6 +289,10 @@ in {
                       };
                       feature = [
                         {
+                          policy = "disable";
+                          name = "hypervisor";
+                        }
+                        {
                           policy = "require";
                           name = "vmx";
                         }
@@ -194,9 +300,10 @@ in {
                           policy = "disable";
                           name = "mpx";
                         }
+                        # Run bcdedit /set useplatformclock true in cmd.exe
                         {
-                          policy = "disable";
-                          name = "hypervisor";
+                          policy = "require";
+                          name = "invtsc";
                         }
                       ];
                     };
@@ -213,6 +320,10 @@ in {
                         }
                         {
                           name = "hpet";
+                          present = false;
+                        }
+                        {
+                          name = "kvmclock";
                           present = false;
                         }
                         {
@@ -479,19 +590,86 @@ in {
                           index = 0;
                         }
                       ];
-                      filesystem = {
-                        type = "mount";
-                        accessmode = "passthrough";
-                        driver = {
-                          type = "virtiofs";
-                        };
-                        source = {
-                          dir = "/home/${user}/.local/share";
-                        };
-                        target = {
-                          dir = "share";
-                        };
-                      };
+                      filesystem = [
+                        {
+                          type = "mount";
+                          accessmode = "passthrough";
+                          driver = {
+                            type = "virtiofs";
+                          };
+                          source = {
+                            dir = "/home/${user}/music";
+                          };
+                          target = {
+                            dir = "music";
+                          };
+                        }
+                        {
+                          type = "mount";
+                          accessmode = "passthrough";
+                          driver = {
+                            type = "virtiofs";
+                          };
+                          source = {
+                            dir = "/home/${user}/.local/src";
+                          };
+                          target = {
+                            dir = "src";
+                          };
+                        }
+                        {
+                          type = "mount";
+                          accessmode = "passthrough";
+                          driver = {
+                            type = "virtiofs";
+                          };
+                          source = {
+                            dir = "/home/${user}/.local/documents";
+                          };
+                          target = {
+                            dir = "documents";
+                          };
+                        }
+                        {
+                          type = "mount";
+                          accessmode = "passthrough";
+                          driver = {
+                            type = "virtiofs";
+                          };
+                          source = {
+                            dir = "/home/${user}/.local/images";
+                          };
+                          target = {
+                            dir = "images";
+                          };
+                        }
+                        {
+                          type = "mount";
+                          accessmode = "passthrough";
+                          driver = {
+                            type = "virtiofs";
+                          };
+                          source = {
+                            dir = "/home/${user}/.local/videos";
+                          };
+                          target = {
+                            dir = "videos";
+                          };
+                        }
+                        {
+                          type = "mount";
+                          accessmode = "passthrough";
+                          driver = {
+                            type = "virtiofs";
+                          };
+                          source = {
+                            dir = "/home/${user}/.ssh";
+                          };
+                          target = {
+                            dir = "ssh";
+                          };
+                        }
+                      ];
                       interface = {
                         type = "bridge";
                         model = {
