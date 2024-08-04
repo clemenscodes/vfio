@@ -324,21 +324,6 @@ in {
                           state = true;
                           value = "GenuineIntel";
                         };
-                        vpindex = {
-                          state = true;
-                        };
-                        synic = {
-                          state = true;
-                        };
-                        stimer = {
-                          state = true;
-                        };
-                        reset = {
-                          state = true;
-                        };
-                        frequencies = {
-                          state = true;
-                        };
                       };
                       kvm = {
                         hidden = {
@@ -350,6 +335,9 @@ in {
                       };
                       smm = {
                         state = true;
+                      };
+                      ioapic = {
+                        driver = "kvm";
                       };
                     };
                     cpu = {
@@ -770,7 +758,7 @@ in {
                           version = "2.0";
                         };
                       };
-                      graphics = lib.optional (display) {
+                      graphics = lib.optional display {
                         type = "vnc";
                         port = -1;
                         autoport = true;
