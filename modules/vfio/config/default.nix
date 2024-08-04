@@ -63,12 +63,6 @@ in {
                     inherit bus slot function;
                     domain = 0;
                   };
-                  pci_address = bus: slot: function: (source_address bus slot function) // {type = "pci";};
-                  usb_address = port: {
-                    inherit port;
-                    type = "usb";
-                    bus = 0;
-                  };
                 in
                   inputs.nixvirt.lib.domain.writeXML {
                     type = "kvm";
@@ -402,15 +396,15 @@ in {
                         model =
                           if passthrough
                           then {
+                            type = "none";
+                          }
+                          else {
                             type = "qxl";
                             ram = 65536;
                             vram = 65536;
                             vgamem = 16384;
                             heads = 1;
                             primary = true;
-                          }
-                          else {
-                            type = "none";
                           };
                       };
                       hostdev =
@@ -428,7 +422,6 @@ in {
                           rom = {
                             bar = false;
                           };
-                          address = pci_address 3 0 0 // {multifunction = true;};
                         }
                         ++ lib.optional passthrough
                         {
@@ -444,7 +437,6 @@ in {
                           rom = {
                             bar = false;
                           };
-                          address = pci_address 5 0 0;
                         }
                         ++ lib.optional passthrough
                         {
@@ -459,7 +451,6 @@ in {
                               id = "0xc541";
                             };
                           };
-                          address = usb_address 3;
                         }
                         ++ lib.optional passthrough
                         {
@@ -474,7 +465,6 @@ in {
                               id = "0xc539";
                             };
                           };
-                          address = usb_address 4;
                         };
                       watchdog = {
                         model = "itco";
