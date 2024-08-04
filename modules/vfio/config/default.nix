@@ -334,13 +334,13 @@ in {
                         type = "mount";
                         accessmode = "passthrough";
                         driver = {
-                          name = "virtiofs";
+                          type = "virtiofs";
                         };
                         source = {
                           dir = "/home/${user}/.local/share";
                         };
                         target = {
-                          dir = "/home/${user}/.local/share";
+                          dir = "share";
                         };
                       };
                       interface = {
