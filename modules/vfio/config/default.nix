@@ -745,26 +745,6 @@ in {
                           bridge = "virbr0";
                         };
                       };
-                      channel =
-                        lib.optional (!passthrough)
-                        {
-                          type = "spicevmc";
-                          target = {
-                            type = "virtio";
-                            name = "com.redhat.spice.0";
-                          };
-                        }
-                        ++ lib.optional (!passthrough)
-                        {
-                          type = "spiceport";
-                          source = {
-                            channel = "org.spice-space.webdav.0";
-                          };
-                          target = {
-                            type = "virtio";
-                            name = "org.spice-space.webdav.0";
-                          };
-                        };
                       input = [
                         {
                           type = "tablet";
