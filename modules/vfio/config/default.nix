@@ -445,7 +445,7 @@ in {
                             address = source_address 3 0 0;
                           };
                           rom = {
-                            bar = true;
+                            bar = false;
                           };
                         }
                         ++ lib.optional passthrough
@@ -460,7 +460,7 @@ in {
                             address = source_address 3 0 1;
                           };
                           rom = {
-                            bar = true;
+                            bar = false;
                           };
                         }
                         ++ lib.optional passthrough
