@@ -334,7 +334,7 @@ in {
                         runtime = {
                           state = true;
                         };
-                        synic= {
+                        synic = {
                           state = true;
                         };
                         stimer = {
@@ -714,7 +714,7 @@ in {
                         }
                       ];
                       tpm = {
-                        model = "tpm-crb";
+                        model = "tpm-tis";
                         backend = {
                           type = "emulator";
                           version = "2.0";
@@ -830,7 +830,7 @@ in {
                         action = "reset";
                       };
                       memballoon = {
-                        model = "virtio";
+                        model = "none";
                       };
                     };
                   };
