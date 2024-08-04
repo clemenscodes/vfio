@@ -10,6 +10,7 @@ in
       ${
       if passthrough
       then ''
+        ${pkgs.mullvad}/bin/mullvad disconnect
         ${pkgs.systemd}/bin/systemctl stop lactd.service
         ${pkgs.systemd}/bin/systemctl stop display-manager.service
         echo 0 > /sys/class/vtconsole/vtcon0/bind

@@ -18,6 +18,7 @@ in
         echo 1 > /sys/class/vtconsole/vtcon1/bind
         ${pkgs.systemd}/bin/systemctl start lactd.service
         ${pkgs.systemd}/bin/systemctl start display-manager.service
+        ${pkgs.mullvad}/bin/mullvad connect
       ''
       else ""
     }
