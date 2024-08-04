@@ -35,8 +35,8 @@ Now you can import the module in your configuration
       vm = "win11";
       cpu = "intel";
       gpu = "amd";
-      passthrough = false;
       display = true;
+      passthrough = false;
       pcis = ["pci_0000_03_00_0" "pci_0000_03_00_1"];
       vnc = {
         enable = true;
