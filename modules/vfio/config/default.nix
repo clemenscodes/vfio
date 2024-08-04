@@ -690,19 +690,6 @@ in {
                             type = "virtiofs";
                           };
                           source = {
-                            dir = "/home/${user}/.local/src";
-                          };
-                          target = {
-                            dir = "src";
-                          };
-                        }
-                        {
-                          type = "mount";
-                          accessmode = "passthrough";
-                          driver = {
-                            type = "virtiofs";
-                          };
-                          source = {
                             dir = "/home/${user}/.local/documents";
                           };
                           target = {
