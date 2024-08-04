@@ -379,11 +379,6 @@ in {
                           policy = "disable";
                           name = "mpx";
                         }
-                        # Run bcdedit /set useplatformclock true in cmd.exe
-                        {
-                          policy = "require";
-                          name = "invtsc";
-                        }
                       ];
                     };
                     clock = {
@@ -399,10 +394,6 @@ in {
                         }
                         {
                           name = "hpet";
-                          present = false;
-                        }
-                        {
-                          name = "kvmclock";
                           present = false;
                         }
                         {
@@ -683,71 +674,71 @@ in {
                             dir = "music";
                           };
                         }
-                        {
-                          type = "mount";
-                          accessmode = "passthrough";
-                          driver = {
-                            type = "virtiofs";
-                          };
-                          source = {
-                            dir = "/home/${user}/.local/src";
-                          };
-                          target = {
-                            dir = "src";
-                          };
-                        }
-                        {
-                          type = "mount";
-                          accessmode = "passthrough";
-                          driver = {
-                            type = "virtiofs";
-                          };
-                          source = {
-                            dir = "/home/${user}/.local/share/documents";
-                          };
-                          target = {
-                            dir = "documents";
-                          };
-                        }
-                        {
-                          type = "mount";
-                          accessmode = "passthrough";
-                          driver = {
-                            type = "virtiofs";
-                          };
-                          source = {
-                            dir = "/home/${user}/.local/share/images";
-                          };
-                          target = {
-                            dir = "images";
-                          };
-                        }
-                        {
-                          type = "mount";
-                          accessmode = "passthrough";
-                          driver = {
-                            type = "virtiofs";
-                          };
-                          source = {
-                            dir = "/home/${user}/.local/share/videos";
-                          };
-                          target = {
-                            dir = "videos";
-                          };
-                        }
-                        {
-                          type = "mount";
-                          accessmode = "passthrough";
-                          driver = {
-                            type = "virtiofs";
-                          };
-                          source = {
-                            dir = "/home/${user}/.ssh";
-                          };
-                          target = {
-                            dir = "ssh";
-                          };
-                        }
+                        # {
+                        #   type = "mount";
+                        #   accessmode = "passthrough";
+                        #   driver = {
+                        #     type = "virtiofs";
+                        #   };
+                        #   source = {
+                        #     dir = "/home/${user}/.local/src";
+                        #   };
+                        #   target = {
+                        #     dir = "src";
+                        #   };
+                        # }
+                        # {
+                        #   type = "mount";
+                        #   accessmode = "passthrough";
+                        #   driver = {
+                        #     type = "virtiofs";
+                        #   };
+                        #   source = {
+                        #     dir = "/home/${user}/.local/share/documents";
+                        #   };
+                        #   target = {
+                        #     dir = "documents";
+                        #   };
+                        # }
+                        # {
+                        #   type = "mount";
+                        #   accessmode = "passthrough";
+                        #   driver = {
+                        #     type = "virtiofs";
+                        #   };
+                        #   source = {
+                        #     dir = "/home/${user}/.local/share/images";
+                        #   };
+                        #   target = {
+                        #     dir = "images";
+                        #   };
+                        # }
+                        # {
+                        #   type = "mount";
+                        #   accessmode = "passthrough";
+                        #   driver = {
+                        #     type = "virtiofs";
+                        #   };
+                        #   source = {
+                        #     dir = "/home/${user}/.local/share/videos";
+                        #   };
+                        #   target = {
+                        #     dir = "videos";
+                        #   };
+                        # }
+                        # {
+                        #   type = "mount";
+                        #   accessmode = "passthrough";
+                        #   driver = {
+                        #     type = "virtiofs";
+                        #   };
+                        #   source = {
+                        #     dir = "/home/${user}/.ssh";
+                        #   };
+                        #   target = {
+                        #     dir = "ssh";
+                        #   };
+                        # }
                       ];
                       interface = {
                         type = "bridge";
@@ -773,13 +764,13 @@ in {
                         }
                       ];
                       tpm = {
-                        model = "tpm-tis";
+                        model = "tpm-crb";
                         backend = {
                           type = "emulator";
                           version = "2.0";
                         };
                       };
-                      graphics = lib.optional (!display) {
+                      graphics = lib.optional (display) {
                         type = "vnc";
                         port = -1;
                         autoport = true;
