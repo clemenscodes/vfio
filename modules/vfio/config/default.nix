@@ -41,6 +41,7 @@ in {
         libvirtd = {
           preStart = ''
             ln -sf ${hooks.qemu}/bin/qemu /var/lib/libvirt/hooks/qemu
+            ln -sf ${./Sapphire.RX7900XTX.24576.221129.rom} /var/lib/libvirt/vgabios/vbios.rom
           '';
         };
       };
@@ -766,6 +767,7 @@ in {
                           };
                           rom = {
                             bar = false;
+                            file = "/var/lib/libvirt/vgabios/vbios.rom";
                           };
                         }
                         ++ lib.optional passthrough
@@ -781,6 +783,7 @@ in {
                           };
                           rom = {
                             bar = false;
+                            file = "/var/lib/libvirt/vgabios/vbios.rom";
                           };
                         }
                         ++ lib.optional passthrough
