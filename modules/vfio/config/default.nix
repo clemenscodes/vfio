@@ -91,6 +91,14 @@ in {
                       unit = "KiB";
                       count = 16777216;
                     };
+                    memoryBacking = {
+                      source = {
+                        type = "memfd";
+                      };
+                      access = {
+                        mode = "shared";
+                      };
+                    };
                     vcpu = {
                       placement = "static";
                       count = 20;
@@ -322,6 +330,17 @@ in {
                           ports = 15;
                         }
                       ];
+                      filesystem = {
+                        type = "mount";
+                        accessmode = "passthrough";
+                        driver = "virtiofs";
+                        source = {
+                          dir = "/home/${user}/.local/share";
+                        };
+                        target = {
+                          dir = "/home/${user}/.local/share";
+                        };
+                      };
                       interface = {
                         type = "bridge";
                         model = {
