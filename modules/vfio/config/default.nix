@@ -72,7 +72,7 @@ in {
                   inputs.nixvirt.lib.domain.writeXML {
                     type = "kvm";
                     name = vm;
-                    uuid = "b8d2d9c9-4088-4288-b668-e12a9fb6d2bb";
+                    uuid = "99901f8b-8c80-9518-a6a1-2cf05dcd371e";
                     metadata = with inputs.nixvirt.lib.xml; [
                       (
                         elem "libosinfo:libosinfo" [
