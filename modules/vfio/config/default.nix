@@ -693,12 +693,12 @@ in {
                         }
                       ];
                       interface = {
-                        type = "network";
+                        type = "bridge";
                         model = {
-                          type = "e1000e";
+                          type = "virtio";
                         };
                         source = {
-                          network = "default";
+                          bridge = "virbr0";
                         };
                       };
                       input = [
@@ -743,10 +743,8 @@ in {
                         model =
                           if display
                           then {
-                            type = "qxl";
-                            ram = 65536;
+                            type = "cirrus";
                             vram = 65536;
-                            vgamem = 16384;
                             heads = 1;
                             primary = true;
                           }
