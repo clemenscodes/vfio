@@ -14,7 +14,7 @@ in {
   config = lib.mkIf cfg.enable {
     boot = {
       kernelParams = ["${cpu}_iommu=on" "iommu=pt"];
-      kernelModules = ["vfio" "vfio_pci" "vfio_virqfd" "vfio_iommu_type1"];
+      kernelModules = ["vfio_pci" "vfio" "vfio_iommu_type1"];
       extraModprobeConfig = ''
         options kvm_${cpu} nested=1
         options kvm ignore_msrs=1
@@ -42,7 +42,6 @@ in {
           preStart = ''
             mkdir -p /var/lib/libvirt/vgabios
             ln -sf ${hooks.qemu}/bin/qemu /var/lib/libvirt/hooks/qemu
-            ln -sf ${./Sapphire.RX7900XTX.24576.221129.rom} /var/lib/libvirt/vgabios/vbios.rom
           '';
         };
       };
@@ -330,27 +329,9 @@ in {
                           state = true;
                           retries = 8191;
                         };
-                        vpindex = {
-                          state = true;
-                        };
-                        runtime = {
-                          state = true;
-                        };
-                        synic = {
-                          state = true;
-                        };
-                        stimer = {
-                          state = true;
-                        };
-                        reset = {
-                          state = true;
-                        };
                         vendor_id = {
                           state = true;
                           value = "GenuineIntel";
-                        };
-                        frequencies = {
-                          state = true;
                         };
                       };
                       kvm = {
@@ -361,8 +342,8 @@ in {
                       vmport = {
                         state = false;
                       };
-                      ioapic = {
-                        driver = "kvm";
+                      smm = {
+                        state = false;
                       };
                     };
                     cpu = {
@@ -387,14 +368,6 @@ in {
                         {
                           policy = "disable";
                           name = "mpx";
-                        }
-                        {
-                          policy = "disable";
-                          name = "svm";
-                        }
-                        {
-                          policy = "require";
-                          name = "topoext";
                         }
                       ];
                     };
@@ -423,8 +396,12 @@ in {
                     on_reboot = "restart";
                     on_crash = "destroy";
                     pm = {
-                      suspend-to-mem = {enabled = false;};
-                      suspend-to-disk = {enabled = false;};
+                      suspend-to-mem = {
+                        enabled = false;
+                      };
+                      suspend-to-disk = {
+                        enabled = false;
+                      };
                     };
                     devices = {
                       emulator = "/run/libvirt/nix-emulators/qemu-system-x86_64";
@@ -442,8 +419,8 @@ in {
                             file = "/var/lib/libvirt/images/win11.qcow2";
                           };
                           target = {
-                            dev = "sda";
-                            bus = "sata";
+                            dev = "vda";
+                            bus = "virtio";
                           };
                           boot = {
                             order =
@@ -495,186 +472,15 @@ in {
                       controller = [
                         {
                           type = "usb";
-                          index = 0;
                           model = "qemu-xhci";
                           ports = 15;
                         }
                         {
                           type = "pci";
-                          index = 0;
                           model = "pcie-root";
                         }
                         {
-                          type = "pci";
-                          index = 1;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 1;
-                            port = 16;
-                          };
-                        }
-                        {
-                          type = "pci";
-                          index = 2;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 2;
-                            port = 17;
-                          };
-                        }
-                        {
-                          type = "pci";
-                          index = 3;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 3;
-                            port = 18;
-                          };
-                        }
-                        {
-                          type = "pci";
-                          index = 4;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 4;
-                            port = 19;
-                          };
-                        }
-                        {
-                          type = "pci";
-                          index = 5;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 5;
-                            port = 20;
-                          };
-                        }
-                        {
-                          type = "pci";
-                          index = 6;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 6;
-                            port = 21;
-                          };
-                        }
-                        {
-                          type = "pci";
-                          index = 7;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 7;
-                            port = 22;
-                          };
-                        }
-                        {
-                          type = "pci";
-                          index = 8;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 8;
-                            port = 23;
-                          };
-                        }
-                        {
-                          type = "pci";
-                          index = 9;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 9;
-                            port = 24;
-                          };
-                        }
-                        {
-                          type = "pci";
-                          index = 10;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 10;
-                            port = 25;
-                          };
-                        }
-                        {
-                          type = "pci";
-                          index = 11;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 11;
-                            port = 26;
-                          };
-                        }
-                        {
-                          type = "pci";
-                          index = 12;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 12;
-                            port = 27;
-                          };
-                        }
-                        {
-                          type = "pci";
-                          index = 13;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 13;
-                            port = 28;
-                          };
-                        }
-                        {
-                          type = "pci";
-                          index = 14;
-                          model = "pcie-root-port";
-                          hack = {
-                            name = "pcie-root-port";
-                          };
-                          target = {
-                            chassis = 14;
-                            port = 29;
-                          };
-                        }
-                        {
                           type = "sata";
-                          index = 0;
                         }
                       ];
                       filesystem = [
@@ -766,7 +572,6 @@ in {
                           };
                           rom = {
                             bar = false;
-                            file = "/var/lib/libvirt/vgabios/vbios.rom";
                           };
                         }
                         ++ lib.optional passthrough
@@ -782,7 +587,6 @@ in {
                           };
                           rom = {
                             bar = false;
-                            file = "/var/lib/libvirt/vgabios/vbios.rom";
                           };
                         }
                         ++ lib.optional passthrough
