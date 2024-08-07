@@ -438,7 +438,7 @@ in {
                           };
                           target = {
                             dev = "sda";
-                            bus = "virtio";
+                            bus = "sata";
                           };
                           boot = {
                             order =
